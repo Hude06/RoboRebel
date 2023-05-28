@@ -1,16 +1,15 @@
+import {Rect} from "./RectUtils.js"
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 let currentKey = new Map();
 class Player {
     constructor(){
-        this.x = 10
-        this.y = 10
-        this.w = 10
-        this.h = 10
+        this.bounds = new Rect(10,10,10,10)
         this.alive = true;
     }
     draw() {
-        ctx.fillRect(this.x,this.y,this.w,this.h);
+        ctx.fillRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
     }
 }
 let player = new Player();
