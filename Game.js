@@ -78,13 +78,14 @@ function Game() {
 }
 function Menu() {
     if (currentKey.get("Enter")) {
-        mode = "Game"
-        document.getElementById("canvas").style.backgroundImage =  url("background.gamebg.jpg");
+        document.getElementById("canvas").style.backgroundImage =  src("background.gamebg.jpg");
         document.getElementById("button1").style.visibility = hidden;
         document.getElementById("button2").style.visibility = hidden;
         document.getElementById("button3").style.visibility = hidden;
         document.getElementById("line1").style.visibility = hidden;
         document.getElementById("title").style.visibility = hidden;
+        mode = "Game"
+
     }
 }
 function Loop() {
