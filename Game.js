@@ -1,17 +1,21 @@
 import {Rect} from "./RectUtils.js"
 import {Player} from "./Player.js"
+import {bullets} from "./Player.js"
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-let currentKey = new Map();
+export let currentKey = new Map();
+export let navKey = new Map();
+
 let debugMode = false;
 let mode = "Menu";
-
 class Tool {
     constructor(src,x,y) {
         this.Sprite = new Image()
         this.Sprite.src = src
         this.bounds = new Rect(x,y,25,25)
         this.visable = true;
+        this.BulletSpeed = 1;
+        this.direction = player.direction;
     }
     draw() {
         if (this.visable) {
@@ -24,9 +28,9 @@ class Tool {
 
     }
 }
+let player = new Player();
 export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
-let player = new Player();
 
 function keyboardLoop() {
     if (currentKey.get("w")) {
@@ -52,10 +56,11 @@ function keyboardLoop() {
 function keyboardInit() {
     window.addEventListener("keydown", function (event) {
         currentKey.set(event.key, true);
-
+        navKey.set(event.key, true);
     });
     window.addEventListener("keyup", function (event) {
         currentKey.set(event.key, false);
+        navKey.set(event.key, false);
     });
 }
 function Game() {
@@ -64,6 +69,11 @@ function Game() {
     gun.draw(ctx);
     player.update(ctx);
     player.collision();
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].draw(ctx);
+        bullets[i].update(ctx);
+
+    }
 }
 function Menu() {
     if (currentKey.get("Enter")) {
@@ -79,6 +89,7 @@ function Loop() {
     if (mode === "Menu") {
         Menu();
     }
+    navKey.clear();
     requestAnimationFrame(Loop)
 }
 function init() {
