@@ -5,6 +5,8 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 export let currentKey = new Map();
 export let navKey = new Map();
+let Music = new Audio();
+Music.src = "./Assets/Music/Music1.mp3"
 
 let debugMode = false;
 let mode = "Menu";
@@ -93,6 +95,7 @@ function Loop() {
     requestAnimationFrame(Loop)
 }
 function init() {
+    Music.play();
     keyboardInit();
     Loop();
 }

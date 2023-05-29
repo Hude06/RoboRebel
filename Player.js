@@ -50,8 +50,6 @@ export class Player {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Down.png"
                 this.toolDirectionOffsetX = 20
                 this.toolDirectionOffsetY = 100
-
-
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
