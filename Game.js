@@ -80,8 +80,7 @@ WorldImage.src = "./Assets/map.png"
 function drawWorld() {
     ctx.drawImage(WorldImage, 0, 0,canvas.width,canvas.height)
 }
-function Menu() {
-    if (currentKey.get("Enter")) {
+function Start() {
         console.log("Run")
         document.getElementById("button1").style.visibility = "hidden";
         document.getElementById("button2").style.visibility = "hidden";
@@ -89,8 +88,6 @@ function Menu() {
         document.getElementById("line1").style.visibility = "hidden";
         document.getElementById("title").style.visibility = "hidden";
         mode = "Game"
-
-    }
 }
 function Save() {
     setTimeout(() => {
@@ -111,14 +108,12 @@ function Loop() {
     if (mode === "Game") {
         Game();
     }
-    if (mode === "Menu") {
-        Menu();
-    }
     navKey.clear();
     requestAnimationFrame(Loop)
 }
 function init() {
     // Music.play();
+    document.getElementById("button1").addEventListener("click", Start);
     keyboardInit();
     Load();
     Save();
