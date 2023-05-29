@@ -20,15 +20,27 @@ export class Player {
         if (this.direction === "Forward") { 
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Up.png"
+                this.toolDirectionOffsetX = 20
+                this.toolDirectionOffsetY = -50
+
+
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
         if (this.direction === "Back") { 
+            if (this.tools === "Gun") {
+                gun.Sprite.src = "./Assets/Sprites/Gun1Down.png"
+                this.toolDirectionOffsetX = 20
+                this.toolDirectionOffsetY = 100
+
+
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.direction === "Left") { 
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
+                this.toolDirectionOffsetY = 10
                 this.toolDirectionOffsetX = -50
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
@@ -36,6 +48,7 @@ export class Player {
         if (this.direction === "Right") { 
                 if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1.png"
+                this.toolDirectionOffsetY = 10
                 this.toolDirectionOffsetX = 100
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
