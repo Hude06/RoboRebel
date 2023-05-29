@@ -29,14 +29,14 @@ export class Player {
         if (this.direction === "Left") { 
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
-                this.toolDirectionOffset = -50
+                this.toolDirectionOffsetX = -50
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
         if (this.direction === "Right") { 
                 if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1.png"
-                this.toolDirectionOffset = 100
+                this.toolDirectionOffsetX = 100
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
