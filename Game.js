@@ -129,8 +129,6 @@ function Game() {
     player.collision();
 }
 function Menu() {
-    ctx.font = "40px Inter-Light";
-    ctx.fillText("Click Enter to Start", canvas.width/2-120, 50);
     if (currentKey.get("Enter")) {
         mode = "Game"
     }

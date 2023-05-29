@@ -16,7 +16,6 @@
         }
         canvas {
             border: 5px solid black;
-            background-color: #fcfbf8 ;
             border: 4px solid black;
             padding-left: 0;
             padding-right: 0;
@@ -25,6 +24,7 @@
             object-fit: contain;
             max-width: 100%;
             max-height: 100%;
+            background-image: url("background.image.jpg");
         }
         @font-face {
             font-family: "Inter-Thin";
@@ -44,23 +44,34 @@
             url(/Assets/Inter-Light.ttf)
             format('truetype');
         }
-        #btn1 {
-            background-color: bisque;
-            border: 0px solid black;
-            display: inline-block;
-            border-radius: 10%;
+        #title {
             position: absolute;
-            top: 100px;
-            left: 20px;
-            height: 30px;
-            width: 100px;
+            left: 50%;
+            top: 50px;
+            font-size: 90px;
+            z-index: +30; 
+            transform: translate(-50%, 0%);
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            visibility: visible;
+        }
+        #line1 {
+            background: #000;
+            position: absolute;
+            height: 15px;
+            width: 720px;
+            top: 150px;
+            left: 300px;
             z-index: +30;
-            color: rgb(107, 107, 107);
+            visibility: visible;
         }
     </style>
 </head>
 <body>
-    <button id="btn1">Click Me</button>
+    <div id="title">Insert Game Title</div>
+    <div id="line1"></div>
+    <div id="play"></div>
+    <div id="how"></div>
+    <div id="credits"></div>
     <div class="fullscreen">
         <canvas id="canvas" width="1700" height="845"></canvas>
     </div>
