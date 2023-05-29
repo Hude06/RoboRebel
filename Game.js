@@ -27,6 +27,7 @@ class Tool {
 export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
 let player = new Player();
+
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;

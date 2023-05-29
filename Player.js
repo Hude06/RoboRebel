@@ -8,6 +8,7 @@ export class Player {
         this.direction = "Forward";
         this.speed = 2;
         this.tools = "";
+        this.toolDirectionOffset = 100;
     }
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
@@ -21,15 +22,19 @@ export class Player {
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.direction === "Left") { 
+            gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
+            this.toolDirectionOffset = -50
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
         if (this.direction === "Right") { 
+            gun.Sprite.src = "./Assets/Sprites/Gun1.png"
+            this.toolDirectionOffset = 100
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.tools === "Gun") {
-            gun.bounds.x = this.bounds.x + 100;
+            gun.bounds.x = this.bounds.x + this.toolDirectionOffset;
             gun.bounds.y = this.bounds.y + 25;
-            ctx.fillRect(gun.bounds.x, gun.bounds.y,gun.bounds.w, gun.bounds.h)
+            gun.visable = true;
             gun.draw();
         }
     }
