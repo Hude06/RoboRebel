@@ -11,7 +11,7 @@ class Player {
         this.bounds = new Rect(10,40,64,64);
         this.direction = "Forward";
         this.speed = 2;
-        this.tools = [];
+        this.tools = "";
     }
     draw() {
         ctx.imageSmoothingEnabled = false;
@@ -33,15 +33,11 @@ class Player {
         if (this.direction === "Right") { 
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
-        console.log(this.tools.length)
-        if (this.tools.length > 0) {
-            console.log("Drawing")
-            for (let i = 0; i < this.tools.length; i++) { 
-                this.tools[i].bounds.x = this.bounds.x;
-                this.tools[i].bounds.y = this.bounds.y;
-                this.tools[i].draw();
-                console.log("Drawing")
-            }
+        if (this.tools === "Gun") {
+            gun.bounds.x = this.bounds.x + 100;
+            gun.bounds.y = this.bounds.y + 25;
+            ctx.fillRect(gun.bounds.x, gun.bounds.y,gun.bounds.w, gun.bounds.h)
+            gun.draw();
         }
     }
     collision() {
@@ -59,14 +55,11 @@ class Player {
         }
         if (this.bounds.intersects(picaxe.bounds) || picaxe.bounds.intersects(this.bounds)){ 
             picaxe.visable = false;
-            // this.tools.push(picaxe);
         }
-        // if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) && gun.beingHeld === false) {
-        //     gun.visable = false;
-        //     this.tools.push(gun);
-        //     gun.beingHeld = true;
-        //     console.log(gun.beingHeld);
-        // }
+        if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
+            gun.visable = false;
+            this.tools = "Gun"
+        }
     }
 }
 class Tool {
@@ -75,7 +68,6 @@ class Tool {
         this.Sprite.src = src
         this.bounds = new Rect(x,y,25,25)
         this.visable = true;
-        this.beingHeld = false;
     }
     draw() {
         if (this.visable) {
