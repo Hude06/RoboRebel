@@ -1,20 +1,27 @@
 import { Rect } from "./RectUtils.js";
-import {gun, picaxe, navKey} from "./Game.js";
+import {gun, picaxe, navKey,player} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
         this.bounds = new Rect(gun.bounds.x, gun.bounds.y,10,10)
         this.speed = gun.BulletSpeed;
-        this.direction;
+        this.direction = player.direction;
     }
     draw(ctx) {
         ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h)
     }
     update() {
-        this.direction = gun.direction;
-        console.log(this.direction);
-        if (this.direction === "left") {
-            this.bounds.x -= 1;
+        if (this.direction === "Left") {
+            this.bounds.x -= this.speed;
+        }
+        if (this.direction === "Right") {
+            this.bounds.x += this.speed;
+        }
+        if (this.direction === "Forward") {
+            this.bounds.y -= this.speed;
+        }
+        if (this.direction === "Back") {
+            this.bounds.y += this.speed;
         }
     }
 }
@@ -40,8 +47,6 @@ export class Player {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Up.png"
                 this.toolDirectionOffsetX = 20
                 this.toolDirectionOffsetY = -50
-
-
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
