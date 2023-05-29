@@ -4,26 +4,65 @@ const ctx = canvas.getContext("2d");
 let currentKey = new Map();
 class Player {
     constructor(){
-        this.bounds = new Rect(10,10,10,10)
-        this.speed = 1;
+        this.Sprite = new Image();
+        this.Sprite.src = "./Assets/Sprites/Player/Player.png";
+        this.bounds = new Rect(10,10,64,64);
+        this.direction = "Forward";
+        this.speed = 2;
     }
     draw() {
-        ctx.fillRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
+    }
+    update() {
+        if (this.direction === "Forward") { 
+            this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
+        }
+        if (this.direction === "Back") { 
+            this.Sprite.src = "./Assets/Sprites/Player/Player.png"
+        }
+        if (this.direction === "Left") { 
+            this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
+        }
+        if (this.direction === "Right") { 
+            this.Sprite.src = "./Assets/Sprites/Player/Player.png"
+        }
+    }
+    collision() {
+        if (this.bounds.x >= canvas.width - 44) {
+            this.bounds.x = canvas.width - 44;
+        }
+        if (this.bounds.x <= -20) {
+            this.bounds.x = -20;
+        }
+        if (this.bounds.y >= canvas.height - 64){
+            this.bounds.y = canvas.height - 64;
+        }
+        if (this.bounds.y <= -28){
+            this.bounds.y = -28;
+        }
     }
 }
 let player = new Player();
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;
+        player.direction = "Forward"
     }
     if (currentKey.get("a")) {
         player.bounds.x -= player.speed;
+        player.direction = "Left"
+
     }
     if (currentKey.get("s")) {
         player.bounds.y += player.speed;
+        player.direction = "Back"
+
     }
     if (currentKey.get("d")) {
         player.bounds.x += player.speed;
+        player.direction = "Right"
+
     }
 }
 function keyboardInit() {
@@ -39,6 +78,8 @@ function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     keyboardLoop();
     player.draw();
+    player.update();
+    player.collision();
     console.log("Running")
     requestAnimationFrame(Loop)
 }
