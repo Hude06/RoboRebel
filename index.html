@@ -24,7 +24,7 @@
             object-fit: contain;
             max-width: 100%;
             max-height: 100%;
-            /* background-image: url("background.image.jpg"); */
+            background-image: url("background.mm.jpg");
         }
         @font-face {
             font-family: "Inter-Thin";
@@ -51,7 +51,6 @@
             font-size: 90px;
             z-index: +30; 
             transform: translate(-50%, 0%);
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             visibility: visible;
         }
         #line1 {
@@ -64,14 +63,24 @@
             z-index: +30;
             visibility: visible;
         }
+        #buttono {
+            background: #00550e;
+            border: 10px solid black;
+            position: absolute;
+            height: 1221;
+            width: 1020;
+            z-index: +3100;
+        }
+        * {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
     </style>
 </head>
 <body>
     <div id="title">Insert Game Title</div>
     <div id="line1"></div>
-    <div id="play"></div>
-    <div id="how"></div>
-    <div id="credits"></div>
+    <button id="buttono">Start</button>
+    
     <div class="fullscreen">
         <canvas id="canvas" width="1700" height="845"></canvas>
     </div>
