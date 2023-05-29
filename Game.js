@@ -46,12 +46,10 @@ function keyboardLoop() {
     if (currentKey.get("s")) {
         player.bounds.y += player.speed;
         player.direction = "Back"
-
     }
     if (currentKey.get("d")) {
         player.bounds.x += player.speed;
         player.direction = "Right"
-
     }
 }
 function keyboardInit() {
@@ -65,6 +63,7 @@ function keyboardInit() {
     });
 }
 function Game() {
+    drawWorld();
     player.draw(ctx);
     picaxe.draw(ctx);
     gun.draw(ctx);
@@ -76,10 +75,14 @@ function Game() {
     }
 
 }
+let WorldImage = new Image();
+WorldImage.src = "./Assets/map.png"
+function drawWorld() {
+    ctx.drawImage(WorldImage, 0, 0,canvas.width,canvas.height)
+}
 function Menu() {
     if (currentKey.get("Enter")) {
         console.log("Run")
-        
         document.getElementById("button1").style.visibility = "hidden";
         document.getElementById("button2").style.visibility = "hidden";
         document.getElementById("button3").style.visibility = "hidden";
@@ -88,6 +91,19 @@ function Menu() {
         mode = "Game"
 
     }
+}
+function Save() {
+    setTimeout(() => {
+        localStorage.setItem("PlayerX", player.bounds.x);
+        localStorage.setItem("PlayerY", player.bounds.y);
+        Save();
+    }, 10000);
+}
+function Load() {
+    player.bounds.x = parseInt(localStorage.getItem("PlayerX"));
+    player.bounds.y = parseInt(localStorage.getItem("PlayerY"));
+    console.log(typeof localStorage.getItem("PlayerY"))
+
 }
 function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -104,6 +120,8 @@ function Loop() {
 function init() {
     // Music.play();
     keyboardInit();
+    Load();
+    Save();
     Loop();
 }
 init();

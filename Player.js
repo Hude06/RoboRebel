@@ -29,7 +29,7 @@ export class Player {
     constructor(){
         this.Sprite = new Image();
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
-        this.bounds = new Rect(10,40,64,64);
+        this.bounds = new Rect(localStorage.getItem("PlayerX"),localStorage.getItem("PlayerY"),64,64);
         this.direction = "Forward";
         this.speed = 2;
         this.tools = "";
