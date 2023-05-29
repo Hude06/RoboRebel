@@ -16,7 +16,7 @@ class Tool {
         this.Sprite.src = src
         this.bounds = new Rect(x,y,25,25)
         this.visable = true;
-        this.BulletSpeed = 1;
+        this.BulletSpeed = 2.5;
         this.direction = player.direction;
     }
     draw() {
@@ -27,10 +27,9 @@ class Tool {
                 ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h)
             }
         }
-
     }
 }
-let player = new Player();
+export let player = new Player();
 export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
 
@@ -74,8 +73,8 @@ function Game() {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw(ctx);
         bullets[i].update(ctx);
-
     }
+
 }
 function Menu() {
     if (currentKey.get("Enter")) {
@@ -95,7 +94,7 @@ function Loop() {
     requestAnimationFrame(Loop)
 }
 function init() {
-    Music.play();
+    // Music.play();
     keyboardInit();
     Loop();
 }
