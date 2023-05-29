@@ -2,10 +2,12 @@ import {Rect} from "./RectUtils.js"
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 let currentKey = new Map();
+let debugMode = false;
+let mode = "Menu";
 class Player {
     constructor(){
         this.Sprite = new Image();
-        this.Sprite.src = "./Assets/Sprites/Player/Player.png";
+        this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.bounds = new Rect(10,40,64,64);
         this.direction = "Forward";
         this.speed = 2;
@@ -14,21 +16,22 @@ class Player {
     draw() {
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
-        ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
-
+        if (debugMode) { 
+            ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
+        }
     }
     update() {
         if (this.direction === "Forward") { 
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
         if (this.direction === "Back") { 
-            this.Sprite.src = "./Assets/Sprites/Player/Player.png"
+            this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.direction === "Left") { 
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
         if (this.direction === "Right") { 
-            this.Sprite.src = "./Assets/Sprites/Player/Player.png"
+            this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
     }
     collision() {
@@ -60,7 +63,9 @@ class Tool {
         if (this.visable) {
             ctx.imageSmoothingEnabled = false;
             ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h)
-            ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h)
+            if (debugMode) {
+                ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h)
+            }
         }
 
     }
@@ -97,14 +102,28 @@ function keyboardInit() {
         currentKey.set(event.key, false);
     });
 }
-function Loop() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    keyboardLoop();
+function Game() {
     player.draw();
     picaxe.draw();
     player.update();
     player.collision();
-    console.log("Running")
+}
+function Menu() {
+    ctx.font = "40px Inter-Light";
+    ctx.fillText("Click Enter to Start", canvas.width/2-120, 50);
+    if (currentKey.get("Enter")) {
+        mode = "Game"
+    }
+}
+function Loop() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    keyboardLoop();
+    if (mode === "Game") {
+        Game();
+    }
+    if (mode === "Menu") {
+        Menu();
+    }
     requestAnimationFrame(Loop)
 }
 function init() {
