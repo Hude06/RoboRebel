@@ -16,7 +16,7 @@
         }
         canvas {
             border: 5px solid black;
-            background-color: #f9f8f5 ;
+            background-color: #fcfbf8 ;
             border: 4px solid black;
             padding-left: 0;
             padding-right: 0;
@@ -44,9 +44,23 @@
             url(/Assets/Inter-Light.ttf)
             format('truetype');
         }
+        #btn1 {
+            background-color: bisque;
+            border: 0px solid black;
+            display: inline-block;
+            border-radius: 10%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 30px;
+            width: 100px;
+            z-index: +30;
+            color: rgb(107, 107, 107);
+        }
     </style>
 </head>
 <body>
+    <button id="btn1">Click Me</button>
     <div class="fullscreen">
         <canvas id="canvas" width="1700" height="845"></canvas>
     </div>
