@@ -59,14 +59,14 @@ class Player {
         }
         if (this.bounds.intersects(picaxe.bounds) || picaxe.bounds.intersects(this.bounds)){ 
             picaxe.visable = false;
-            this.tools.push(picaxe);
+            // this.tools.push(picaxe);
         }
-        if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) && gun.beingHeld === false) {
-            gun.visable = false;
-            this.tools.push(gun);
-            gun.beingHeld = true;
-            console.log(gun.beingHeld);
-        }
+        // if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) && gun.beingHeld === false) {
+        //     gun.visable = false;
+        //     this.tools.push(gun);
+        //     gun.beingHeld = true;
+        //     console.log(gun.beingHeld);
+        // }
     }
 }
 class Tool {
