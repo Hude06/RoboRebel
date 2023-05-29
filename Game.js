@@ -1,67 +1,11 @@
 import {Rect} from "./RectUtils.js"
+import {Player} from "./Player.js"
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 let currentKey = new Map();
 let debugMode = false;
 let mode = "Menu";
-class Player {
-    constructor(){
-        this.Sprite = new Image();
-        this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
-        this.bounds = new Rect(10,40,64,64);
-        this.direction = "Forward";
-        this.speed = 2;
-        this.tools = "";
-    }
-    draw() {
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
-        if (debugMode) { 
-            ctx.strokeRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
-        }
-    }
-    update() {
-        if (this.direction === "Forward") { 
-            this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
-        }
-        if (this.direction === "Back") { 
-            this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
-        }
-        if (this.direction === "Left") { 
-            this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
-        }
-        if (this.direction === "Right") { 
-            this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
-        }
-        if (this.tools === "Gun") {
-            gun.bounds.x = this.bounds.x + 100;
-            gun.bounds.y = this.bounds.y + 25;
-            ctx.fillRect(gun.bounds.x, gun.bounds.y,gun.bounds.w, gun.bounds.h)
-            gun.draw();
-        }
-    }
-    collision() {
-        if (this.bounds.x >= canvas.width - 44) {
-            this.bounds.x = canvas.width - 44;
-        }
-        if (this.bounds.x <= -20) {
-            this.bounds.x = -20;
-        }
-        if (this.bounds.y >= canvas.height - 64){
-            this.bounds.y = canvas.height - 64;
-        }
-        if (this.bounds.y <= -28){
-            this.bounds.y = -28;
-        }
-        if (this.bounds.intersects(picaxe.bounds) || picaxe.bounds.intersects(this.bounds)){ 
-            picaxe.visable = false;
-        }
-        if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
-            gun.visable = false;
-            this.tools = "Gun"
-        }
-    }
-}
+
 class Tool {
     constructor(src,x,y) {
         this.Sprite = new Image()
@@ -80,8 +24,8 @@ class Tool {
 
     }
 }
-let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
-let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
+export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
+export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
 let player = new Player();
 function keyboardLoop() {
     if (currentKey.get("w")) {
@@ -114,10 +58,10 @@ function keyboardInit() {
     });
 }
 function Game() {
-    player.draw();
-    picaxe.draw();
-    gun.draw();
-    player.update();
+    player.draw(ctx);
+    picaxe.draw(ctx);
+    gun.draw(ctx);
+    player.update(ctx);
     player.collision();
 }
 function Menu() {
