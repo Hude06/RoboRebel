@@ -16,7 +16,7 @@ class Tool {
         this.Sprite.src = src
         this.bounds = new Rect(x,y,25,25)
         this.visable = true;
-        this.BulletSpeed = 2.5;
+        this.BulletSpeed = 6;
         this.direction = player.direction;
     }
     draw() {
