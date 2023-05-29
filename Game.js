@@ -33,6 +33,16 @@ class Player {
         if (this.direction === "Right") { 
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
+        console.log(this.tools.length)
+        if (this.tools.length > 0) {
+            console.log("Drawing")
+            for (let i = 0; i < this.tools.length; i++) { 
+                this.tools[i].bounds.x = this.bounds.x;
+                this.tools[i].bounds.y = this.bounds.y;
+                this.tools[i].draw();
+                console.log("Drawing")
+            }
+        }
     }
     collision() {
         if (this.bounds.x >= canvas.width - 44) {
@@ -49,15 +59,23 @@ class Player {
         }
         if (this.bounds.intersects(picaxe.bounds) || picaxe.bounds.intersects(this.bounds)){ 
             picaxe.visable = false;
+            // this.tools.push(picaxe);
         }
+        // if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) && gun.beingHeld === false) {
+        //     gun.visable = false;
+        //     this.tools.push(gun);
+        //     gun.beingHeld = true;
+        //     console.log(gun.beingHeld);
+        // }
     }
 }
 class Tool {
-    constructor(src) {
+    constructor(src,x,y) {
         this.Sprite = new Image()
         this.Sprite.src = src
-        this.bounds = new Rect(10,10,25,25)
+        this.bounds = new Rect(x,y,25,25)
         this.visable = true;
+        this.beingHeld = false;
     }
     draw() {
         if (this.visable) {
@@ -70,7 +88,8 @@ class Tool {
 
     }
 }
-let picaxe = new Tool("./Assets/Pixax.png")
+let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
+let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
 let player = new Player();
 function keyboardLoop() {
     if (currentKey.get("w")) {
@@ -105,6 +124,7 @@ function keyboardInit() {
 function Game() {
     player.draw();
     picaxe.draw();
+    gun.draw();
     player.update();
     player.collision();
 }
