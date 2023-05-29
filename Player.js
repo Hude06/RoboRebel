@@ -8,7 +8,9 @@ export class Player {
         this.direction = "Forward";
         this.speed = 2;
         this.tools = "";
-        this.toolDirectionOffset = 100;
+        this.toolDirectionOffsetX = 100;
+        this.toolDirectionOffsetY = 25;
+
     }
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
@@ -16,24 +18,32 @@ export class Player {
     }
     update(ctx) {
         if (this.direction === "Forward") { 
+            if (this.tools === "Gun") {
+                gun.Sprite.src = "./Assets/Sprites/Gun1Up.png"
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
         if (this.direction === "Back") { 
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.direction === "Left") { 
-            gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
-            this.toolDirectionOffset = -50
+            if (this.tools === "Gun") {
+                gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
+                this.toolDirectionOffset = -50
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
         if (this.direction === "Right") { 
-            gun.Sprite.src = "./Assets/Sprites/Gun1.png"
-            this.toolDirectionOffset = 100
+                if (this.tools === "Gun") {
+                gun.Sprite.src = "./Assets/Sprites/Gun1.png"
+                this.toolDirectionOffset = 100
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.tools === "Gun") {
-            gun.bounds.x = this.bounds.x + this.toolDirectionOffset;
-            gun.bounds.y = this.bounds.y + 25;
+            console.log(this.toolDirectionOffsetX)
+            gun.bounds.x = this.bounds.x + this.toolDirectionOffsetX;
+            gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             gun.visable = true;
             gun.draw();
         }
