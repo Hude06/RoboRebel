@@ -77,6 +77,14 @@ function Game() {
 
     }
 }
+function onGameStart(){ // when enter is press or when start is clicked (DOES NOT WORK YET JUDE!)  make it work
+    document.getElementById("canvas").style.backgroundImage =  url("background.gamebg.jpg");
+    document.getElementById("button1").style.visibility = hidden;
+    document.getElementById("button2").style.visibility = hidden;
+    document.getElementById("button3").style.visibility = hidden;
+    document.getElementById("line1").style.visibility = hidden;
+    document.getElementById("title").style.visibility = hidden;
+}
 function Menu() {
     if (currentKey.get("Enter")) {
         mode = "Game"
