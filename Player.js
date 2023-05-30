@@ -1,5 +1,5 @@
 import { Rect } from "./RectUtils.js";
-import {gun, navKey,player} from "./Game.js";
+import {gun, navKey,player,mode} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
@@ -35,6 +35,8 @@ export class Player {
     constructor(){
         this.Sprite = new Image();
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
+        this.HeathSprite = new Image();
+        this.HeathSprite.src = "./Assets/Sprites/Heart.png";
         this.bounds = new Rect(10,10,64,64);
         this.direction = "Forward";
         this.speed = 2;
@@ -42,7 +44,7 @@ export class Player {
         this.toolDirectionOffsetX = 100;
         this.toolDirectionOffsetY = 25;
         this.Parts = 0;
-
+        this.health = 3;
     }
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
@@ -90,6 +92,10 @@ export class Player {
                 bullets.push(new Bullet(gun));
             }
         }
+        if (this.health <= 0) {
+            alert("You Died!")
+            location.reload()
+        }
     }
     collision() {
         if (this.bounds.x >= canvas.width - 44) {
@@ -107,6 +113,11 @@ export class Player {
         if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
             gun.visable = false;
             this.tools = "Gun"
+        }
+    }
+    DrawHealth(ctx) {
+        for (let i = 0; i < this.health;i ++) {
+            ctx.drawImage(this.HeathSprite, -10 + i*60,-40,100,100)
         }
     }
 } 

@@ -9,7 +9,7 @@ export let navKey = new Map();
 let Music = new Audio();
 Music.src = "./Assets/Music/Music1.mp3"
 let debugMode = false;
-let mode = "Menu";
+export let mode = "Menu";
 let SavedTextVisable = false;
 class Tool {
     constructor(src,x,y) {
@@ -72,6 +72,7 @@ function Game() {
     Robot1.collison()
     player.update(ctx);
     player.collision();
+    player.DrawHealth(ctx);
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw(ctx);
         bullets[i].update(ctx);

@@ -1,5 +1,6 @@
 import { Rect } from "./RectUtils.js";
 import { bullets } from "./Player.js";
+import { player } from "./Game.js";
 export class Robot {
     constructor(src,health,damage,speed) {
         this.bounds = new Rect(200,10,64,64);
@@ -10,19 +11,23 @@ export class Robot {
         this.image.src = src;
     }
     draw(ctx) {
-        console.log(this.health)
-        if (this.health > 0) {
+        if (this.health >= 0) {
             ctx.drawImage(this.image, this.bounds.x, this.bounds.y, this.bounds.w,this.bounds.h);
-
         }
     }
     collison() {
+        if (this.health >= 0) {
         for (let i = 0; i < bullets.length; i++) {
             if (bullets[i].bounds.intersects(this.bounds) || this.bounds.intersects(bullets[i].bounds)) {
-                //Need to Fix Temerary, Bandane
-                bullets[i].alive = false;
+                bullets.splice(i,1);
+                this.health -= 1;
             };
         };
+        if (this.bounds.intersects(player.bounds) || player.bounds.intersects(this.bounds)) {
+            player.health -= 0.01;
+
+            }
+        }
     };
     follow(player) {
         if (player.bounds.x > this.bounds.x){
@@ -39,4 +44,4 @@ export class Robot {
         }
      }
     
-}
+};
