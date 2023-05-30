@@ -11,6 +11,7 @@ class Bullet {
 
     draw(ctx) {
         if (this.alive) {
+            ctx.fillStyle = "black";
             ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
         }
     }
@@ -45,10 +46,15 @@ export class Player {
         this.toolDirectionOffsetY = 25;
         this.Parts = 0;
         this.health = 3;
+        this.Insanity = 2;
     }
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
+        ctx.lineWidth = 5;
+        ctx.strokeRect(200,10,125,30)
+        ctx.fillStyle = "red";
+        ctx.fillRect(200,10,this.Insanity*12.5,30)
     }
     update(ctx) {
         if (this.direction === "Forward") { 

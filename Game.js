@@ -98,7 +98,6 @@ function Start() {
         document.getElementById("button1").style.visibility = "hidden";
         document.getElementById("button2").style.visibility = "hidden";
         document.getElementById("button3").style.visibility = "hidden";
-        document.getElementById("line1").style.visibility = "hidden";
         document.getElementById("title").style.visibility = "hidden";
         mode = "Game"
 }
@@ -128,10 +127,10 @@ function Load() {
         player.direction = "Back";
     }
 }
-function ClearLocalStorage() {
-    localStorage.clear();
-    console.log("Cleared")
-}
+// function ClearLocalStorage() {
+//     localStorage.clear();
+//     console.log("Cleared")
+// }
 function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     keyboardLoop();
@@ -144,7 +143,7 @@ function Loop() {
 function init() {
     // Music.play();
     document.getElementById("button1").addEventListener("click", Start);
-    document.getElementById("button4").addEventListener("click", ClearLocalStorage);
+    // document.getElementById("button4").addEventListener("click", ClearLocalStorage);
     keyboardInit();
     Load();
     Save();
