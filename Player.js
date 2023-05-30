@@ -35,6 +35,7 @@ export class Player {
         this.tools = "";
         this.toolDirectionOffsetX = 100;
         this.toolDirectionOffsetY = 25;
+        this.Parts = 0;
 
     }
     draw(ctx) {

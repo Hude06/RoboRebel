@@ -1,13 +1,13 @@
 import {Rect} from "./RectUtils.js"
 import {Player} from "./Player.js"
 import {bullets} from "./Player.js"
+import { Robot } from "./Enemy.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 export let currentKey = new Map();
 export let navKey = new Map();
 let Music = new Audio();
 Music.src = "./Assets/Music/Music1.mp3"
-
 let debugMode = false;
 let mode = "Menu";
 class Tool {
@@ -32,6 +32,11 @@ class Tool {
 export let player = new Player();
 export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
+let Robot1 = new Robot()
+Robot1.health = 2;
+Robot1.damage = 1;
+Robot1.speed = 1;
+Robot1.src = "./Assets/Sprites/Robots/Robot1.png"
 
 function keyboardLoop() {
     if (currentKey.get("w")) {
@@ -67,6 +72,7 @@ function Game() {
     player.draw(ctx);
     picaxe.draw(ctx);
     gun.draw(ctx);
+    Robot1.dra
     player.update(ctx);
     player.collision();
     for (let i = 0; i < bullets.length; i++) {
