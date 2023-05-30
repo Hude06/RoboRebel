@@ -10,6 +10,7 @@ let Music = new Audio();
 Music.src = "./Assets/Music/Music1.mp3"
 let debugMode = false;
 let mode = "Menu";
+let SavedTextVisable = false;
 class Tool {
     constructor(src,x,y) {
         this.Sprite = new Image()
@@ -79,6 +80,15 @@ function Game() {
         bullets[i].draw(ctx);
         bullets[i].update(ctx);
     }
+    if (SavedTextVisable) {
+        ctx.font = "40px Impact";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(10, canvas.height-65,120,60)
+        ctx.fillText("Saved", 20, canvas.height-20)
+        setTimeout(() => {
+            SavedTextVisable = false;
+          }, 5000);  
+    }
 
 }
 let WorldImage = new Image();
@@ -99,12 +109,19 @@ function Save() {
     setTimeout(() => {
         localStorage.setItem("PlayerX", player.bounds.x);
         localStorage.setItem("PlayerY", player.bounds.y);
+        localStorage.setItem("PlayerDirection", player.direction);
+        localStorage.setItem("Tool", player.tools);
+        console.log("Saving")
         Save();
+        console.log("Saved")
+        SavedTextVisable = true;
     }, 10000);
 }
 function Load() {
     player.bounds.x = parseInt(localStorage.getItem("PlayerX"));
     player.bounds.y = parseInt(localStorage.getItem("PlayerY"));
+    player.tools = localStorage.getItem("Tool");
+    player.direction = localStorage.getItem("PlayerDirection");
     console.log(typeof localStorage.getItem("PlayerY"))
 
 }

@@ -1,6 +1,7 @@
+import { Rect } from "./RectUtils.js";
 export class Robot {
     constructor() {
-        this.bounds = new Rect(config.x, config.y, config.w,config.h);
+        this.bounds = new Rect(10,10,10,10);
         this.health = 1;
         this.damage = 1;
         this.speed = 1;
