@@ -32,11 +32,7 @@ class Tool {
 }
 export let player = new Player();
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
-let Robot1 = new Robot()
-Robot1.health = 2;
-Robot1.damage = 1;
-Robot1.speed = 1;
-Robot1.src = "./Assets/Sprites/Robots/Robot1.png"
+let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",5,1,1);
 
 function keyboardLoop() {
     if (currentKey.get("w")) {
@@ -71,6 +67,9 @@ function Game() {
     drawWorld();
     player.draw(ctx);
     gun.draw(ctx);
+    Robot1.draw(ctx);
+    Robot1.follow(player);
+    Robot1.collison()
     player.update(ctx);
     player.collision();
     for (let i = 0; i < bullets.length; i++) {
@@ -123,7 +122,6 @@ function Load() {
         player.direction = localStorage.getItem("PlayerDirection");
         console.log(typeof localStorage.getItem("PlayerY"))
     } else {
-        console.log("RAM")
         player.bounds.x = 10
         player.bounds.y = 10
         player.direction = "Back";

@@ -6,22 +6,28 @@ class Bullet {
         this.bounds = new Rect(gun.bounds.x, gun.bounds.y,10,10)
         this.speed = gun.BulletSpeed;
         this.direction = player.direction;
+        this.alive = true;
     }
+
     draw(ctx) {
-        ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h)
+        if (this.alive) {
+            ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
+        }
     }
     update() {
-        if (this.direction === "Left") {
-            this.bounds.x -= this.speed;
-        }
-        if (this.direction === "Right") {
-            this.bounds.x += this.speed;
-        }
-        if (this.direction === "Forward") {
-            this.bounds.y -= this.speed;
-        }
-        if (this.direction === "Back") {
-            this.bounds.y += this.speed;
+        if (this.alive) {
+            if (this.direction === "Left") {
+                this.bounds.x -= this.speed;
+            }
+            if (this.direction === "Right") {
+                this.bounds.x += this.speed;
+            }
+            if (this.direction === "Forward") {
+                this.bounds.y -= this.speed;
+            }
+            if (this.direction === "Back") {
+                this.bounds.y += this.speed;
+            }
         }
     }
 }
