@@ -79,7 +79,6 @@ function Game() {
 function Menu() {
     if (currentKey.get("Enter")) {
         console.log("Run")
-        
         document.getElementById("button1").style.visibility = "hidden";
         document.getElementById("button2").style.visibility = "hidden";
         document.getElementById("button3").style.visibility = "hidden";
