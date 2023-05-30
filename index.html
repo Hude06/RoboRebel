@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Top Down Shooter</title>
+    <title>RoboReign</title>
     <style>
         .fullscreen
          {
@@ -15,8 +15,6 @@
             align-items: center;
         }
         #canvas {
-            border: 5px solid black;
-            border: 4px solid black;
             padding-left: 0;
             padding-right: 0;
             display: block;
@@ -72,10 +70,11 @@
             top: 200px;
             left: 50%;
             z-index: +30;
-            visibility: visible;
-            font-size: 30px;
+            font-size: 300%;
             transform: translate(-50%, 0%);
-            transition: 500ms;
+            transition: 10ms;
+            visibility: visible;
+
         }
         #button2 {
             background: #007e39;
@@ -86,10 +85,11 @@
             top: 350px;
             left: 50%;
             z-index: +30;
-            visibility: visible;
             font-size: 30px;
             transform: translate(-50%, 0%);
-            transition: 500ms;
+            transition: 10ms;
+            visibility: visible;
+
         }
         #button3 {
             background: #007e39;
@@ -100,10 +100,24 @@
             top: 500px;
             left: 50%;
             z-index: +30;
-            visibility: visible;
             font-size: 30px;
             transform: translate(-50%, 0%);
-            transition: 500ms;
+            transition: 10ms;
+            visibility: visible;
+
+        }
+        #button4 {
+            background: #007e39;
+            border: 5px solid black;
+            position: absolute;
+            height: 100px;
+            left: 5%;
+            z-index: +30;
+            font-size: 30px;
+            transform: translate(-50%, 0%);
+            transition: 10ms;
+            visibility: visible;
+
         }
         #button1:hover {
             background: #3ff399;
@@ -120,13 +134,13 @@
     </style>
 </head>
 <body>
-    <div id="title">Insert Game Title</div>
-    <div id="line1"></div>
-    <button id="button1">Start</button>
-    <button id="button2">How to Play</button>
-    <button id="button3">Credits</button>
-    
+    <div id="title">MrRobotic</div>
+    <!-- <button id="button4">Clear</button> -->
+
     <div class="fullscreen">
+        <button id="button1">Start</button>
+        <button id="button2">How to Play</button>
+        <button id="button3">Credits</button>
         <canvas id="canvas" width="1700" height="845"></canvas>
     </div>
     <script src="Game.js" type="module"></script>
