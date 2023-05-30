@@ -1,5 +1,5 @@
 import { Rect } from "./RectUtils.js";
-import {gun, picaxe, navKey,player} from "./Game.js";
+import {gun, navKey,player} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
@@ -29,7 +29,7 @@ export class Player {
     constructor(){
         this.Sprite = new Image();
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
-        this.bounds = new Rect(localStorage.getItem("PlayerX"),localStorage.getItem("PlayerY"),64,64);
+        this.bounds = new Rect(10,10,64,64);
         this.direction = "Forward";
         this.speed = 2;
         this.tools = "";
@@ -97,9 +97,6 @@ export class Player {
         }
         if (this.bounds.y <= -28){
             this.bounds.y = -28;
-        }
-        if (this.bounds.intersects(picaxe.bounds) || picaxe.bounds.intersects(this.bounds)){ 
-            picaxe.visable = false;
         }
         if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
             gun.visable = false;

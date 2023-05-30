@@ -31,7 +31,6 @@ class Tool {
     }
 }
 export let player = new Player();
-export let picaxe = new Tool("./Assets/Sprites/Pixax.png",10,10);
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100);
 let Robot1 = new Robot()
 Robot1.health = 2;
@@ -71,9 +70,7 @@ function keyboardInit() {
 function Game() {
     drawWorld();
     player.draw(ctx);
-    picaxe.draw(ctx);
     gun.draw(ctx);
-    Robot1.dra
     player.update(ctx);
     player.collision();
     for (let i = 0; i < bullets.length; i++) {
@@ -118,12 +115,23 @@ function Save() {
     }, 10000);
 }
 function Load() {
-    player.bounds.x = parseInt(localStorage.getItem("PlayerX"));
-    player.bounds.y = parseInt(localStorage.getItem("PlayerY"));
-    player.tools = localStorage.getItem("Tool");
-    player.direction = localStorage.getItem("PlayerDirection");
-    console.log(typeof localStorage.getItem("PlayerY"))
-
+    console.log(localStorage)
+    if (localStorage.length > 0) {
+        player.bounds.x = parseInt(localStorage.getItem("PlayerX"));
+        player.bounds.y = parseInt(localStorage.getItem("PlayerY"));
+        player.tools = localStorage.getItem("Tool");
+        player.direction = localStorage.getItem("PlayerDirection");
+        console.log(typeof localStorage.getItem("PlayerY"))
+    } else {
+        console.log("RAM")
+        player.bounds.x = 10
+        player.bounds.y = 10
+        player.direction = "Back";
+    }
+}
+function ClearLocalStorage() {
+    localStorage.clear();
+    console.log("Cleared")
 }
 function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -137,6 +145,7 @@ function Loop() {
 function init() {
     // Music.play();
     document.getElementById("button1").addEventListener("click", Start);
+    document.getElementById("button4").addEventListener("click", ClearLocalStorage);
     keyboardInit();
     Load();
     Save();
