@@ -3,26 +3,50 @@
 <head>
   <style>
     .cell {
-      width: 100px;
-      height: 50px;
+      width: 18px;
+      height: 18px;
       border: 1px solid black;
+      cursor: pointer;
+      z-index: +100;
+    }
+
+    .selected {
+      background-color: red;
+    }
+    #map {
+      position: absolute;
+      z-index: -500;
+      scale: 150%;
+      top: 70px;
+      left: 130px;
     }
   </style>
+  <script>
+    // Function to handle cell selection
+    function selectCell(row, col) {
+      var cellId = 'cell_' + row + '_' + col;
+      var cell = document.getElementById(cellId);
+      cell.classList.toggle('selected');
+    }
+  </script>
 </head>
 <body>
+  <img id="map"src="./Assets/map.png">
   <table>
     <tbody>
       <!-- Generating rows -->
+      <div id = "Everything">
       <script>
-        for (let row = 1; row <= 30; row++) {
+        for (let row = 1; row <= 15; row++) {
           document.write("<tr>");
           // Generating columns
-          for (let col = 1; col <= 15; col++) {
-            document.write('<td><div class="cell" id="cell_' + row + '_' + col + '"' + row + '-' + col + '</div></td>');
+          for (let col = 1; col <= 30; col++) {
+            document.write('<td><div class="cell" id="cell_' + row + '_' + col + '" onclick="selectCell(' + row + ', ' + col + ')"' + row + '-' + col + '</div></td>');
           }
           document.write("</tr>");
         }
       </script>
+      </div>
     </tbody>
   </table>
 </body>
