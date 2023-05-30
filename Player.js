@@ -38,8 +38,8 @@ export class Player {
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.HeathSprite = new Image();
         this.HeathSprite.src = "./Assets/Sprites/Heart.png";
-        this.bounds = new Rect(10,10,64,64);
-        this.direction = "Forward";
+        this.bounds = new Rect(800,300,64,64);
+        this.direction = "Back";
         this.speed = 2;
         this.tools = "";
         this.toolDirectionOffsetX = 100;
@@ -51,9 +51,11 @@ export class Player {
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(this.Sprite,this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h);
+    }
+    insanityBar(ctx) {
+        ctx.fillStyle = "red";
         ctx.lineWidth = 5;
         ctx.strokeRect(200,10,125,30)
-        ctx.fillStyle = "red";
         ctx.fillRect(200,10,this.Insanity*12.5,30)
     }
     update(ctx) {

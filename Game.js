@@ -73,6 +73,7 @@ function Game() {
     player.update(ctx);
     player.collision();
     player.DrawHealth(ctx);
+    player.insanityBar(ctx);
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].draw(ctx);
         bullets[i].update(ctx);
@@ -127,15 +128,47 @@ function Load() {
         player.direction = "Back";
     }
 }
-// function ClearLocalStorage() {
-//     localStorage.clear();
-//     console.log("Cleared")
-// }
+function ClearLocalStorage() {
+    localStorage.clear();
+    console.log("Cleared")
+}
+let functionCalled = false;
+function Tutorial() {
+    ctx.fillStyle = "#639e41";
+    document.getElementById("button1").style.visibility = "hidden";
+    document.getElementById("button2").style.visibility = "hidden";
+    document.getElementById("button3").style.visibility = "hidden";
+    document.getElementById("title").style.visibility = "hidden";
+    ctx.fillRect(0,0,canvas.width,canvas.height);    player.draw(ctx);
+    gun.draw(ctx);
+    player.update(ctx);
+    player.collision();
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].draw(ctx);
+        bullets[i].update(ctx);
+    }
+    if (SavedTextVisable) {
+        ctx.font = "40px Impact";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(10, canvas.height-65,120,60)
+        ctx.fillText("Saved", 20, canvas.height-20)
+        setTimeout(() => {
+            SavedTextVisable = false;
+          }, 5000);  
+    }
+}
+function HowToPlay() {
+    mode = "Tutorial";
+}
 function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     keyboardLoop();
     if (mode === "Game") {
+        GameInit()
         Game();
+    }
+    if (mode === "Tutorial") {
+        Tutorial();
     }
     navKey.clear();
     requestAnimationFrame(Loop)
@@ -143,10 +176,17 @@ function Loop() {
 function init() {
     // Music.play();
     document.getElementById("button1").addEventListener("click", Start);
-    // document.getElementById("button4").addEventListener("click", ClearLocalStorage);
+    document.getElementById("button2").addEventListener("click", HowToPlay);
+
+    document.getElementById("button4").addEventListener("click", ClearLocalStorage);
     keyboardInit();
-    Load();
-    Save();
     Loop();
+}
+function GameInit() {
+    if (functionCalled === false) {
+        Load();
+        Save();
+        functionCalled = true;
+    }
 }
 init();
