@@ -2,13 +2,14 @@ import { Rect } from "./RectUtils.js";
 import { bullets } from "./Player.js";
 import { player } from "./Game.js";
 export class Robot {
-    constructor(src,health,damage,speed) {
-        this.bounds = new Rect(200,10,64,64);
+    constructor(src,health,damage,speed,x,y) {
+        this.bounds = new Rect(x,y,64,64);
         this.health = health;
         this.damage = damage;
         this.speed = speed;
         this.image = new Image()
         this.image.src = src;
+        this.offset = Math.floor(Math.random() * 200) - 100; 
     }
     draw(ctx) {
         if (this.health >= 0) {
@@ -30,16 +31,17 @@ export class Robot {
         }
     };
     follow(player) {
-        if (player.bounds.x > this.bounds.x){
+        console.log(this.offset)
+        if ((player.bounds.x + this.offset) > this.bounds.x){
             this.bounds.x += this.speed
         }
-        if (player.bounds.x < this.bounds.x){
+        if ((player.bounds.x + this.offset) < this.bounds.x){
             this.bounds.x -= this.speed
         }
-        if (player.bounds.y > this.bounds.y){
+        if ((player.bounds.y + this.offset) > this.bounds.y){
             this.bounds.y += this.speed
         }
-        if (player.bounds.y < this.bounds.y){
+        if ((player.bounds.y + this.offset) < this.bounds.y){
             this.bounds.y -= this.speed
         }
      }
