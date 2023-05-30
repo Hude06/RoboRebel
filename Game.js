@@ -3,6 +3,7 @@ import {Player} from "./Player.js"
 import {bullets} from "./Player.js"
 import { Robot } from "./Enemy.js";
 import { Tool } from "./Tools.js";
+import { LevelManager } from "./LevelManager.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 export let currentKey = new Map();
@@ -11,14 +12,28 @@ export let player = new Player();
 export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 let Music = new Audio();
+class Level {
+    constructor(number,map) {
+      this.number = number;
+      this.map = map;
+      // Other level-specific properties
+    }
+   draw() {
+        drawMap(this.map)
+   }
+    // Level-specific methods
+}
 Music.src = "./Assets/Music/Music1.mp3"
 let SavedTextVisable = false;
 let GameInitCalled = false;
 let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",1,1,1,200,200);
 let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,1,10,10);
 let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,1,100,100);
-let WorldImage = new Image();
-WorldImage.src = "./Assets/map.png"
+let Home = new Level(1,"./Assets/map.png");
+let Level1 = new Level(2,"./Assets/Level1.png");
+
+let WorldMap = new Image();
+WorldMap.src = ""
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;
@@ -81,7 +96,7 @@ function BulletsDrawUpdate() {
 }
 function Game() {
     //ALL DRAWING CODE
-    drawWorld();
+    Level1.draw();
     playerDraw();
     toolsDraw();
     RobotDraw();
@@ -91,8 +106,9 @@ function Game() {
     RobotUpdate();
 
 }
-function drawWorld() {
-    ctx.drawImage(WorldImage, 0, 0,canvas.width,canvas.height)
+function drawMap(map) {
+    WorldMap.src = map;
+    ctx.drawImage(WorldMap, 0, 0,canvas.width,canvas.height)
 }
 function StartGameFromButton() {
         document.getElementById("button1").style.visibility = "hidden";
