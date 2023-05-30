@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TileEditor</title>
+  <style>
+    .cell {
+      width: 100px;
+      height: 50px;
+      border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
-    
+  <table>
+    <tbody>
+      <!-- Generating rows -->
+      <script>
+        for (let row = 1; row <= 30; row++) {
+          document.write("<tr>");
+          // Generating columns
+          for (let col = 1; col <= 15; col++) {
+            document.write('<td><div class="cell" id="cell_' + row + '_' + col + '"' + row + '-' + col + '</div></td>');
+          }
+          document.write("</tr>");
+        }
+      </script>
+    </tbody>
+  </table>
 </body>
 </html>
