@@ -22,8 +22,6 @@ class Level {
       this.h = h
     }
    draw() {
-    console.log(this.w,this.h)
-
         drawMap(this.map,this.w,this.h)
         if (this.robots) {
             for (let i = 0; i < this.robots.length; i++) {
@@ -59,7 +57,7 @@ let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",1,1,1,200,200);
 let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,1,10,10);
 let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,1,100,100);
 let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
-let Level1 = new Level(2,"./Assets/Level1.png",480,240);
+let Level1 = new Level(2,"./Assets/Level1.png",canvas.width,canvas.height);
 let House = new Level(3,"./Assets/House.png",500,500);
 Level1.robots = [Robot1,Robot2,Robot3];
 let ExitWall = new Wall(1,1668,110,32,285)
@@ -67,6 +65,7 @@ let RoomEnterWall = new Wall(2,775,250,150,32);
 Home.walls = [ExitWall,RoomEnterWall]
 let WorldMap = new Image();
 WorldMap.src = ""
+let currentLevel = Home;
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;
@@ -124,11 +123,14 @@ function BulletsDrawUpdate() {
         bullets[i].update(ctx);
     }
 }
-let currentLevel = Home;
 function Game() {
     //ALL DRAWING CODE
     currentLevel.draw();
     currentLevel.update();
+    if (currentLevel === House) {
+        console.log("HOuse")
+        gun.visable = false;
+    }
     playerDraw();
     toolsDraw();
     //ALL UPDATE CODE

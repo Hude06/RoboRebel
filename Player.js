@@ -10,13 +10,13 @@ class Bullet {
     }
 
     draw(ctx) {
-        if (this.alive) {
+        if (this.alive && gun.visable) {
             ctx.fillStyle = "black";
             ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
         }
     }
     update() {
-        if (this.alive) {
+        if (this.alive && gun.visable) {
             if (this.direction === "Left") {
                 this.bounds.x -= this.speed;
             }
@@ -94,7 +94,7 @@ export class Player {
         if (this.tools === "Gun") {
             gun.bounds.x = this.bounds.x + this.toolDirectionOffsetX;
             gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
-            gun.visable = true;
+            gun.Enabled = true;
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
@@ -119,7 +119,7 @@ export class Player {
             this.bounds.y = -28;
         }
         if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
-            gun.visable = false;
+            gun.Enabled = false;
             this.tools = "Gun"
         }
     }
