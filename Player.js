@@ -38,7 +38,7 @@ export class Player {
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.HeathSprite = new Image();
         this.HeathSprite.src = "./Assets/Sprites/Heart.png";
-        this.bounds = new Rect(800,300,64,64);
+        this.bounds = new Rect(800,500,64,64);
         this.direction = "Back";
         this.speed = 2;
         this.tools = "";

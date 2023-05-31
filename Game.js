@@ -13,15 +13,44 @@ export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 let Music = new Audio();
 class Level {
-    constructor(number,map) {
+    constructor(number,map,w,h) {
       this.number = number;
       this.map = map;
-      // Other level-specific properties
+      this.walls = [];
+      this.robots = [];
+      this.w = w
+      this.h = h
     }
    draw() {
-        drawMap(this.map)
+    console.log(this.w,this.h)
+
+        drawMap(this.map,this.w,this.h)
+        if (this.robots) {
+            for (let i = 0; i < this.robots.length; i++) {
+                this.robots[i].draw(ctx);
+            }
+        }
+   }
+   update() {
+    for (let i = 0; i < this.walls.length; i++) {
+        if (this.walls[0].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[0].bounds)) {
+            player.bounds.x = this.walls[0].bounds.x-65;
+            currentLevel = Level1;
+        }
+        if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
+            player.bounds.x = this.walls[1].bounds.x;
+            currentLevel = House;
+        }
+        ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
+    }
    }
     // Level-specific methods
+}
+class Wall {
+    constructor(id,x,y,w,h) {
+        this.id = id;
+        this.bounds = new Rect(x,y,w,h)
+    }
 }
 Music.src = "./Assets/Music/Music1.mp3"
 let SavedTextVisable = false;
@@ -29,9 +58,13 @@ let GameInitCalled = false;
 let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",1,1,1,200,200);
 let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,1,10,10);
 let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,1,100,100);
-let Home = new Level(1,"./Assets/map.png");
-let Level1 = new Level(2,"./Assets/Level1.png");
-
+let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
+let Level1 = new Level(2,"./Assets/Level1.png",480,240);
+let House = new Level(3,"./Assets/House.png",500,500);
+Level1.robots = [Robot1,Robot2,Robot3];
+let ExitWall = new Wall(1,1668,110,32,285)
+let RoomEnterWall = new Wall(2,775,250,150,32);
+Home.walls = [ExitWall,RoomEnterWall]
 let WorldMap = new Image();
 WorldMap.src = ""
 function keyboardLoop() {
@@ -62,18 +95,15 @@ function keyboardInit() {
         navKey.set(event.key, false);
     });
 }
-function RobotDraw() {
-    Robot1.draw(ctx);
-    Robot2.draw(ctx);
-    Robot3.draw(ctx);
-}
 function RobotUpdate() {
-    Robot1.follow(player);
-    Robot1.collison()
-    Robot2.follow(player);
-    Robot2.collison()
-    Robot3.follow(player);
-    Robot3.collison();
+    if (currentLevel === Level1) {
+        Robot1.follow(player);
+        Robot1.collison()
+        Robot2.follow(player);
+        Robot2.collison()
+        Robot3.follow(player);
+        Robot3.collison();
+    }
 }
 function toolsDraw() {
     gun.draw(10,10,ctx);
@@ -94,21 +124,23 @@ function BulletsDrawUpdate() {
         bullets[i].update(ctx);
     }
 }
+let currentLevel = Home;
 function Game() {
     //ALL DRAWING CODE
-    Level1.draw();
+    currentLevel.draw();
+    currentLevel.update();
     playerDraw();
     toolsDraw();
-    RobotDraw();
     //ALL UPDATE CODE
     BulletsDrawUpdate();
-    playerUpdate();
     RobotUpdate();
+    playerUpdate();
 
 }
-function drawMap(map) {
+function drawMap(map,w,h) {
     WorldMap.src = map;
-    ctx.drawImage(WorldMap, 0, 0,canvas.width,canvas.height)
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(WorldMap,canvas.width/2-w/2,canvas.height/2-h/2,w,h)
 }
 function StartGameFromButton() {
         document.getElementById("button1").style.visibility = "hidden";
@@ -119,8 +151,6 @@ function StartGameFromButton() {
 }
 function Save() {
     setTimeout(() => {
-        localStorage.setItem("PlayerX", player.bounds.x);
-        localStorage.setItem("PlayerY", player.bounds.y);
         localStorage.setItem("PlayerDirection", player.direction);
         localStorage.setItem("Tool", player.tools);
         console.log("Saving")
@@ -130,10 +160,7 @@ function Save() {
     }, 10000);
 }
 function Load() {
-    console.log(localStorage)
     if (localStorage.length > 0) {
-        player.bounds.x = parseInt(localStorage.getItem("PlayerX"));
-        player.bounds.y = parseInt(localStorage.getItem("PlayerY"));
         player.tools = localStorage.getItem("Tool");
         player.direction = localStorage.getItem("PlayerDirection");
         console.log(typeof localStorage.getItem("PlayerY"))

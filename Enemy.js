@@ -31,7 +31,6 @@ export class Robot {
         }
     };
     follow(player) {
-        console.log(this.offset)
         if ((player.bounds.x + this.offset) > this.bounds.x){
             this.bounds.x += this.speed
         }
