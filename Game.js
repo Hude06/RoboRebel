@@ -66,7 +66,7 @@ let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,0.5,200,500);
 let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,0.5,100,100);
 let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
 let Level1 = new Level(2,"./Assets/Level1.png",canvas.width,canvas.height);
-let House = new Level(3,"./Assets/House.png",500,500);
+let House = new Level(3,"./Assets/House.png",700,700);
 Level1.robots = [Robot1,Robot2,Robot3];
 let ExitWall = new Wall(1,1668,110,32,285)
 let EdgeWall1 = new Wall(3,250,60,32,750)
@@ -76,7 +76,7 @@ Level1.walls = [EdgeWall1]
 
 let WorldMap = new Image();
 WorldMap.src = ""
-let currentLevel = Home;
+let currentLevel = House;
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;
