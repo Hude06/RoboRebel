@@ -48,7 +48,7 @@ class Level {
                 currentLevel = House;
             }
         }
-        ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
+        // ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
     }
    }
     // Level-specific methods
@@ -76,7 +76,7 @@ Level1.walls = [EdgeWall1]
 
 let WorldMap = new Image();
 WorldMap.src = ""
-let currentLevel = House;
+let currentLevel = Home;
 function keyboardLoop() {
     if (currentKey.get("w")) {
         player.bounds.y -= player.speed;
