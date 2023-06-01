@@ -12,6 +12,7 @@ export let player = new Player();
 export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 let Music = new Audio();
+export let gamePaused = false;
 export let particalEngine = new ParticleSource();
 class Level {
     constructor(number,map,w,h) {
@@ -32,18 +33,21 @@ class Level {
    }
    update() {
     for (let i = 0; i < this.walls.length; i++) {
+        if (currentLevel === Home) {
         if (this.walls[0].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[0].bounds)) {
             player.bounds.x = this.walls[0].bounds.x-65;
             currentLevel = Level1;
         }
-        console.log(this.walls.length)
-        if (this.walls.length > 1) {
             if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
                 player.bounds.x = this.walls[1].bounds.x;
                 currentLevel = House;
             }
+            if (this.walls[2].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[2].bounds)) {
+                player.bounds.y = this.walls[2].bounds.y;
+                gamePaused = true;
+            }
         }
-        // ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
+        ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
     }
    }
     // Level-specific methods
@@ -66,28 +70,32 @@ Level1.robots = [Robot1,Robot2,Robot3];
 let ExitWall = new Wall(1,1668,110,32,285)
 let EdgeWall1 = new Wall(3,250,60,32,750)
 let RoomEnterWall = new Wall(2,775,250,150,32);
-Home.walls = [ExitWall,RoomEnterWall]
+let ShopWall = new Wall(4,1440,150,175,32);
+
+Home.walls = [ExitWall,RoomEnterWall,ShopWall]
 Level1.walls = [EdgeWall1]
 
 let WorldMap = new Image();
 WorldMap.src = ""
 let currentLevel = Home;
 function keyboardLoop() {
-    if (currentKey.get("w")) {
-        player.bounds.y -= player.speed;
-        player.direction = "Forward"
-    }
-    if (currentKey.get("a")) {
-        player.bounds.x -= player.speed;
-        player.direction = "Left"
-    }
-    if (currentKey.get("s")) {
-        player.bounds.y += player.speed;
-        player.direction = "Back"
-    }
-    if (currentKey.get("d")) {
-        player.bounds.x += player.speed;
-        player.direction = "Right"
+    if (gamePaused === false) {
+        if (currentKey.get("w")) {
+            player.bounds.y -= player.speed;
+            player.direction = "Forward"
+        }
+        if (currentKey.get("a")) {
+            player.bounds.x -= player.speed;
+            player.direction = "Left"
+        }
+        if (currentKey.get("s")) {
+            player.bounds.y += player.speed;
+            player.direction = "Back"
+        }
+        if (currentKey.get("d")) {
+            player.bounds.x += player.speed;
+            player.direction = "Right"
+        }
     }
 }
 function keyboardInit() {
@@ -101,13 +109,15 @@ function keyboardInit() {
     });
 }
 function RobotUpdate() {
-    if (currentLevel === Level1) {
-        Robot1.follow(player);
-        Robot1.collison()
-        Robot2.follow(player);
-        Robot2.collison()
-        Robot3.follow(player);
-        Robot3.collison();
+    if (gamePaused === false) {
+        if (currentLevel === Level1) {
+            Robot1.follow(player);
+            Robot1.collison()
+            Robot2.follow(player);
+            Robot2.collison()
+            Robot3.follow(player);
+            Robot3.collison();
+        }
     }
 }
 function toolsDraw() {
@@ -118,10 +128,12 @@ function playerDraw() {
 
 }
 function playerUpdate() {
-    player.update(ctx);
-    player.collision();
-    player.DrawHealth(ctx);
-    player.insanityBar(ctx);
+    if (gamePaused === false) {
+        player.update(ctx);
+        player.collision();
+        player.DrawHealth(ctx);
+        player.insanityBar(ctx);
+    }
 }
 function BulletsDrawUpdate() {
     for (let i = 0; i < bullets.length; i++) {
