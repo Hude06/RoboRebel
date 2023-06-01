@@ -253,3 +253,7 @@ function GameInit() {
     }
 }
 init();
+
+if( ( level = 1 ) && ( wall = 3 ) ){
+
+}   
