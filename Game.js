@@ -63,6 +63,9 @@ class Wall {
 }
 function openShop(){
 document.getElementById("shop").style.visibility = "visible";
+document.getElementById("shop").innerHTML = "Parts: " + player.Parts;
+document.getElementById("display").style.left = "50%";
+document.getElementById("display").style.top = "20%";
 }
 function closeShop(){
     gamePaused = false;
