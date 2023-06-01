@@ -3,6 +3,7 @@ import {Player} from "./Player.js"
 import {bullets} from "./Player.js"
 import { Robot } from "./Enemy.js";
 import { Tool } from "./Tools.js";
+import { ParticleSource } from "./Particals.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 export let currentKey = new Map();
@@ -11,13 +12,7 @@ export let player = new Player();
 export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 let Music = new Audio();
-function findItemByName(items, targetName) {
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].name === targetName) {
-        return items[i];
-      }
-    }
-}
+export let particalEngine = new ParticleSource();
 class Level {
     constructor(number,map,w,h) {
       this.number = number;
@@ -147,7 +142,6 @@ function Game() {
     BulletsDrawUpdate();
     RobotUpdate();
     playerUpdate();
-
 }
 function drawMap(map,w,h) {
     WorldMap.src = map;
@@ -225,14 +219,12 @@ function Loop() {
         ctx.fillText("Front End Code Devoper, Eli Ciho", canvas.width/2, (canvas.height/2-600) + CreditsScrollSpeed);
         ctx.fillText("Music, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-500) + CreditsScrollSpeed);
         ctx.fillText("Sound Effects, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-400) + CreditsScrollSpeed);
-
-
-
-
     }
     if (mode === "Game") {
         GameInit()
         Game();
+        particalEngine.draw_particles(ctx,238,134,149)
+        particalEngine.update_particles();
     }
     if (mode === "Tutorial") {
         Tutorial();

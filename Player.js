@@ -1,5 +1,5 @@
 import { Rect } from "./RectUtils.js";
-import {gun, navKey,player,mode} from "./Game.js";
+import {gun, navKey,player,mode,particalEngine} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
@@ -98,6 +98,7 @@ export class Player {
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
+                particalEngine.start_particles(gun.bounds.x,gun.bounds.y)
             }
         }
         if (this.health <= 0) {
