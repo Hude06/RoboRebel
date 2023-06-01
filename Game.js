@@ -128,7 +128,6 @@ function Game() {
     currentLevel.draw();
     currentLevel.update();
     if (currentLevel === House) {
-        console.log("HOuse")
         gun.visable = false;
     }
     playerDraw();
@@ -165,7 +164,6 @@ function Load() {
     if (localStorage.length > 0) {
         player.tools = localStorage.getItem("Tool");
         player.direction = localStorage.getItem("PlayerDirection");
-        console.log(typeof localStorage.getItem("PlayerY"))
     } else {
         player.bounds.x = 10
         player.bounds.y = 10

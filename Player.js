@@ -38,7 +38,7 @@ export class Player {
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.HeathSprite = new Image();
         this.HeathSprite.src = "./Assets/Sprites/Heart.png";
-        this.bounds = new Rect(800,500,64,64);
+        this.bounds = new Rect(800,500,55,55);
         this.direction = "Back";
         this.speed = 2;
         this.tools = "";
@@ -63,7 +63,7 @@ export class Player {
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Up.png"
                 this.toolDirectionOffsetX = 20
-                this.toolDirectionOffsetY = -50
+                this.toolDirectionOffsetY = -30
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
@@ -71,7 +71,7 @@ export class Player {
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Down.png"
                 this.toolDirectionOffsetX = 20
-                this.toolDirectionOffsetY = 100
+                this.toolDirectionOffsetY = 65
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
@@ -79,7 +79,7 @@ export class Player {
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Flipped.png"
                 this.toolDirectionOffsetY = 10
-                this.toolDirectionOffsetX = -50
+                this.toolDirectionOffsetX = -30
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
@@ -87,7 +87,7 @@ export class Player {
                 if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1.png"
                 this.toolDirectionOffsetY = 10
-                this.toolDirectionOffsetX = 100
+                this.toolDirectionOffsetX = 60
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
