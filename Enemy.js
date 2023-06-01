@@ -21,6 +21,10 @@ export class Robot {
             if (bullets[i].bounds.intersects(this.bounds) || this.bounds.intersects(bullets[i].bounds)) {
                 bullets.splice(i,1);
                 this.health -= 1;
+                if( this.health < 1 ){
+                    player.Parts++;
+                    document.getElementById("display").innerHTML = "Parts: " + player.Parts;
+                }
             };
         };
         if (this.bounds.intersects(player.bounds) || player.bounds.intersects(this.bounds)) {

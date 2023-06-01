@@ -104,6 +104,12 @@
         * {
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         }
+        #display {
+            visibility: hidden;
+            position: absolute;
+            top: 2%;
+            left: 20%;
+        }
     </style>
 </head>
 <body>
@@ -115,8 +121,8 @@
         <button id="button2">How to Play</button>
         <button id="button3">Credits</button>
         <canvas id="canvas" width="1700" height="845"></canvas>
+        <money id="display">Parts: </money>
     </div>
     <script src="Game.js" type="module"></script>
-
 </body>
 </html>
