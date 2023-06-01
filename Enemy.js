@@ -9,7 +9,6 @@ export class Robot {
         this.speed = speed;
         this.image = new Image()
         this.image.src = src;
-        this.offset = Math.floor(Math.random() * 200) - 100; 
     }
     draw(ctx) {
         if (this.health >= 0) {
@@ -31,16 +30,16 @@ export class Robot {
         }
     };
     follow(player) {
-        if ((player.bounds.x + this.offset) > this.bounds.x){
+        if ((player.bounds.x) > this.bounds.x){
             this.bounds.x += this.speed
         }
-        if ((player.bounds.x + this.offset) < this.bounds.x){
+        if ((player.bounds.x) < this.bounds.x){
             this.bounds.x -= this.speed
         }
-        if ((player.bounds.y + this.offset) > this.bounds.y){
+        if ((player.bounds.y) > this.bounds.y){
             this.bounds.y += this.speed
         }
-        if ((player.bounds.y + this.offset) < this.bounds.y){
+        if ((player.bounds.y) < this.bounds.y){
             this.bounds.y -= this.speed
         }
      }

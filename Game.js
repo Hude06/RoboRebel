@@ -3,7 +3,6 @@ import {Player} from "./Player.js"
 import {bullets} from "./Player.js"
 import { Robot } from "./Enemy.js";
 import { Tool } from "./Tools.js";
-import { LevelManager } from "./LevelManager.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 export let currentKey = new Map();
@@ -12,6 +11,13 @@ export let player = new Player();
 export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 let Music = new Audio();
+function findItemByName(items, targetName) {
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].name === targetName) {
+        return items[i];
+      }
+    }
+}
 class Level {
     constructor(number,map,w,h) {
       this.number = number;
@@ -35,9 +41,12 @@ class Level {
             player.bounds.x = this.walls[0].bounds.x-65;
             currentLevel = Level1;
         }
-        if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
-            player.bounds.x = this.walls[1].bounds.x;
-            currentLevel = House;
+        console.log(this.walls.length)
+        if (this.walls.length > 1) {
+            if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
+                player.bounds.x = this.walls[1].bounds.x;
+                currentLevel = House;
+            }
         }
         ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
     }
@@ -51,18 +60,20 @@ class Wall {
     }
 }
 Music.src = "./Assets/Music/Music1.mp3"
-let SavedTextVisable = false;
 let GameInitCalled = false;
-let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",1,1,1,200,200);
-let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,1,10,10);
-let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,1,100,100);
+let Robot1 = new Robot("./Assets/Sprites/Robots/Robot1.png",1,1,0.5,500,200);
+let Robot2 = new Robot("./Assets/Sprites/Robots/Robot2.png",1,1,0.5,200,500);
+let Robot3 = new Robot("./Assets/Sprites/Robots/Robot3.png",1,1,0.5,100,100);
 let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
 let Level1 = new Level(2,"./Assets/Level1.png",canvas.width,canvas.height);
 let House = new Level(3,"./Assets/House.png",500,500);
 Level1.robots = [Robot1,Robot2,Robot3];
 let ExitWall = new Wall(1,1668,110,32,285)
+let EdgeWall1 = new Wall(3,250,60,32,750)
 let RoomEnterWall = new Wall(2,775,250,150,32);
 Home.walls = [ExitWall,RoomEnterWall]
+Level1.walls = [EdgeWall1]
+
 let WorldMap = new Image();
 WorldMap.src = ""
 let currentLevel = Home;
@@ -157,7 +168,6 @@ function Save() {
         console.log("Saving")
         Save();
         console.log("Saved")
-        SavedTextVisable = true;
     }, 10000);
 }
 function Load() {
