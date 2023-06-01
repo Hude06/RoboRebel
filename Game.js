@@ -43,10 +43,13 @@ class Level {
                 currentLevel = House;
             }
             if (this.walls[2].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[2].bounds)) {
-                player.bounds.y = this.walls[2].bounds.y + offset;
-                offset = 1000;
+                player.bounds.y = this.walls[2].bounds.y;
                 gamePaused = true;
                 openShop();
+                if (currentKey.get("p")) {
+                    closeShop();
+                    player.bounds.y = this.walls[2].bounds.y+40;
+                }
             }
         }
         ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
@@ -54,7 +57,6 @@ class Level {
    }
     // Level-specific methods
 }
-let offset = 0;
 class Wall {
     constructor(id,x,y,w,h) {
         this.id = id;
@@ -65,6 +67,7 @@ function openShop(){
 document.getElementById("shop").style.visibility = "visible";
 }
 function closeShop(){
+    console.log("Shop Closed")
     gamePaused = false;
     document.getElementById("shop").style.visibility = "hidden";
 }
@@ -275,7 +278,3 @@ function GameInit() {
     }
 }
 init();
-
-if( ( level = 1 ) && ( wall = 3 ) ){
-
-}   
