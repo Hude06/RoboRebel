@@ -180,6 +180,13 @@ function Load() {
         player.direction = "Back";
     }
 }
+function Credits() {
+    document.getElementById("button1").style.visibility = "hidden";
+    document.getElementById("button2").style.visibility = "hidden";
+    document.getElementById("button3").style.visibility = "hidden";
+    document.getElementById("title").style.visibility = "hidden";
+    mode = "Credits"
+}
 function Tutorial() {
     ctx.fillStyle = "#639e41";
     document.getElementById("button1").style.visibility = "hidden";
@@ -204,9 +211,25 @@ function Tutorial() {
 function HowToPlay() {
     mode = "Tutorial";
 }
+let CreditsScrollSpeed = 1;
 function Loop() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     keyboardLoop();
+    if (mode === "Credits") {
+        CreditsScrollSpeed += 1;
+        console.log("Running")
+        ctx.font = "40px Impact";
+        ctx.textAlign = "center";
+        ctx.fillText("Pixel Art Desinger, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-800) + CreditsScrollSpeed);
+        ctx.fillText("Back End Code Devoper, Jude Hill", canvas.width/2, (canvas.height/2-700) + CreditsScrollSpeed);
+        ctx.fillText("Front End Code Devoper, Eli Ciho", canvas.width/2, (canvas.height/2-600) + CreditsScrollSpeed);
+        ctx.fillText("Music, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-500) + CreditsScrollSpeed);
+        ctx.fillText("Sound Effects, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-400) + CreditsScrollSpeed);
+
+
+
+
+    }
     if (mode === "Game") {
         GameInit()
         Game();
@@ -221,6 +244,8 @@ function init() {
     // Music.play();
     document.getElementById("button1").addEventListener("click", StartGameFromButton);
     document.getElementById("button2").addEventListener("click", HowToPlay);
+    document.getElementById("button3").addEventListener("click", Credits);
+
 
     // document.getElementById("button4").addEventListener("click", ClearLocalStorage);
     keyboardInit();
