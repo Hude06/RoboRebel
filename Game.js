@@ -43,8 +43,10 @@ class Level {
                 currentLevel = House;
             }
             if (this.walls[2].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[2].bounds)) {
-                player.bounds.y = this.walls[2].bounds.y;
+                player.bounds.y = this.walls[2].bounds.y + offset;
+                offset = 1000;
                 gamePaused = true;
+                openShop();
             }
         }
         ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
@@ -52,11 +54,19 @@ class Level {
    }
     // Level-specific methods
 }
+let offset = 0;
 class Wall {
     constructor(id,x,y,w,h) {
         this.id = id;
         this.bounds = new Rect(x,y,w,h)
     }
+}
+function openShop(){
+document.getElementById("shop").style.visibility = "visible";
+}
+function closeShop(){
+    gamePaused = false;
+    document.getElementById("shop").style.visibility = "hidden";
 }
 Music.src = "./Assets/Music/Music1.mp3"
 let GameInitCalled = false;

@@ -101,14 +101,30 @@
         #button3:hover {
             background: #3ff399;
         }
+        #shop {
+            background: #1168b9;
+            border: 20px solid rgb(0, 0, 0);
+            position: absolute;
+            height: 80%;
+            width: 80%;
+            max-width: 100%;
+            max-Height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: +10000;
+            visibility: hidden;
+        }
         * {
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            cursor: cell;
         }
         #display {
             visibility: hidden;
             position: absolute;
             top: 2%;
             left: 20%;
+            z-index: +1000000;
         }
     </style>
 </head>
@@ -123,6 +139,7 @@
         <canvas id="canvas" width="1700" height="845"></canvas>
         <money id="display">Parts: </money>
     </div>
+    <div id="shop" onclick="closeShop()"></div>
     <script src="Game.js" type="module"></script>
 </body>
 </html>
