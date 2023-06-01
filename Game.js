@@ -165,6 +165,7 @@ function StartGameFromButton() {
         document.getElementById("button2").style.visibility = "hidden";
         document.getElementById("button3").style.visibility = "hidden";
         document.getElementById("title").style.visibility = "hidden";
+        document.getElementById("display").style.visibility = "visible";
         mode = "Game"
 }
 function Save() {
@@ -249,6 +250,7 @@ function init() {
     document.getElementById("button1").addEventListener("click", StartGameFromButton);
     document.getElementById("button2").addEventListener("click", HowToPlay);
     document.getElementById("button3").addEventListener("click", Credits);
+    document.getElementById("display").innerHTML = "Parts: " + player.Parts;
 
 
     // document.getElementById("button4").addEventListener("click", ClearLocalStorage);
