@@ -131,7 +131,6 @@ export class Player {
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
-                particalEngine.start_particles(gun.bounds.x,gun.bounds.y)
             }
         }
         if (this.tools === "Semi") {
@@ -142,7 +141,6 @@ export class Player {
             SemiAutoGun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(SemiAutoGun));
-                particalEngine.start_particles(SemiAutoGun.bounds.x,SemiAutoGun.bounds.y)
             }
         }
         if (this.health <= 0) {
