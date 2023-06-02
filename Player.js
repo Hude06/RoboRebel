@@ -1,9 +1,9 @@
 import { Rect } from "./RectUtils.js";
-import {gun, navKey,player,mode,particalEngine} from "./Game.js";
+import {gun, navKey,player,mode,particalEngine, SemiAutoGun} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
-        this.bounds = new Rect(gun.bounds.x, gun.bounds.y,10,10)
+        this.bounds = new Rect(gun.bounds.x+player.bulletDirectionOffsetX, gun.bounds.y+player.bulletDirectionOffsetY,10,10)
         this.speed = gun.BulletSpeed;
         this.direction = player.direction;
         this.alive = true;
@@ -44,6 +44,9 @@ export class Player {
         this.tools = "";
         this.toolDirectionOffsetX = 100;
         this.toolDirectionOffsetY = 25;
+        this.bulletDirectionOffsetX = 10
+        this.bulletDirectionOffsetY = 10
+
         this.Parts = 0;
         this.health = 3;
         this.Insanity = 2;
@@ -65,6 +68,13 @@ export class Player {
                 this.toolDirectionOffsetX = 20
                 this.toolDirectionOffsetY = -30
             }
+            if (this.tools === "Semi") {
+                SemiAutoGun.Sprite.src = "./Assets/Sprites/SemiAutoUp.png"
+                this.toolDirectionOffsetX = -10
+                this.toolDirectionOffsetY = -80
+                this.bulletDirectionOffsetY = 0;
+                this.bulletDirectionOffsetX = 40
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerBack.png"
         }
         if (this.direction === "Back") { 
@@ -72,6 +82,13 @@ export class Player {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Down.png"
                 this.toolDirectionOffsetX = 20
                 this.toolDirectionOffsetY = 65
+            }
+            if (this.tools === "Semi") {
+                SemiAutoGun.Sprite.src = "./Assets/Sprites/SemiAutoDown.png"
+                this.toolDirectionOffsetX = 0
+                this.toolDirectionOffsetY = 65
+                this.bulletDirectionOffsetY = 10;
+                this.bulletDirectionOffsetX = 20
             }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
@@ -81,6 +98,13 @@ export class Player {
                 this.toolDirectionOffsetY = 10
                 this.toolDirectionOffsetX = -30
             }
+            if (this.tools === "Semi") {
+                SemiAutoGun.Sprite.src = "./Assets/Sprites/SemiAutoFlipped.png"
+                this.toolDirectionOffsetY = 0
+                this.toolDirectionOffsetX = -70
+                this.bulletDirectionOffsetY = 20;
+                this.bulletDirectionOffsetX = 0
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerLeft.png"
         }
         if (this.direction === "Right") { 
@@ -89,16 +113,36 @@ export class Player {
                 this.toolDirectionOffsetY = 10
                 this.toolDirectionOffsetX = 60
             }
+            if (this.tools === "Semi") {
+                SemiAutoGun.Sprite.src = "./Assets/Sprites/Gun2.png"
+                this.toolDirectionOffsetY = 0
+                this.toolDirectionOffsetX = 60
+                this.bulletDirectionOffsetY = 20;
+                this.bulletDirectionOffsetX = 20
+            }
             this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png"
         }
         if (this.tools === "Gun") {
             gun.bounds.x = this.bounds.x + this.toolDirectionOffsetX;
             gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
-            gun.Enabled = true;
+            gun.visable = true;
+            gun.equipted = true;
+
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
                 particalEngine.start_particles(gun.bounds.x,gun.bounds.y)
+            }
+        }
+        if (this.tools === "Semi") {
+            SemiAutoGun.bounds.x = this.bounds.x + this.toolDirectionOffsetX;
+            SemiAutoGun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
+            SemiAutoGun.visable = true;
+            SemiAutoGun.equipted = true;
+            SemiAutoGun.draw();
+            if (navKey.get(" ")) {
+                bullets.push(new Bullet(SemiAutoGun));
+                particalEngine.start_particles(SemiAutoGun.bounds.x,SemiAutoGun.bounds.y)
             }
         }
         if (this.health <= 0) {
@@ -120,8 +164,12 @@ export class Player {
             this.bounds.y = -28;
         }
         if (this.bounds.intersects(gun.bounds) || gun.bounds.intersects(this.bounds) ) {
-            gun.Enabled = false;
+            gun.visable = false;
             this.tools = "Gun"
+        }
+        if (this.bounds.intersects(SemiAutoGun.bounds) || SemiAutoGun.bounds.intersects(this.bounds) ) {
+            SemiAutoGun.visable = false;
+            this.tools = "Semi"
         }
     }
     DrawHealth(ctx) {
