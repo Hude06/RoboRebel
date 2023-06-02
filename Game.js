@@ -99,22 +99,23 @@ let WorldMap = new Image();
 WorldMap.src = ""
 let currentLevel = Home;
 function keyboardLoop() {
+    console.log(player.direction,player.speed)
     if (gamePaused === false) {
-        if (currentKey.get("w")) {
-            player.bounds.y -= player.speed;
+        if (currentKey.get("w") ) {
             player.direction = "Forward"
+            player.bounds.y -= player.speed;
         }
         if (currentKey.get("a")) {
-            player.bounds.x -= player.speed;
             player.direction = "Left"
+            player.bounds.x -= player.speed;
         }
         if (currentKey.get("s")) {
-            player.bounds.y += player.speed;
             player.direction = "Back"
+            player.bounds.y += player.speed;
         }
         if (currentKey.get("d")) {
-            player.bounds.x += player.speed;
             player.direction = "Right"
+            player.bounds.x += player.speed;
         }
     }
 }

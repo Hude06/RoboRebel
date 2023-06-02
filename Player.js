@@ -1,5 +1,5 @@
 import { Rect } from "./RectUtils.js";
-import {gun, navKey,player,mode,particalEngine, SemiAutoGun} from "./Game.js";
+import {gun, navKey,player,mode,particalEngine, SemiAutoGun, currentKey} from "./Game.js";
 export let bullets = []
 class Bullet {
     constructor(gun) {
@@ -46,10 +46,11 @@ export class Player {
         this.toolDirectionOffsetY = 25;
         this.bulletDirectionOffsetX = 10
         this.bulletDirectionOffsetY = 10
-
+        this.dash = false;
         this.Parts = 0;
         this.health = 3;
         this.Insanity = 2;
+        this.dashCooldown = 10;
     }
     draw(ctx) {
         ctx.imageSmoothingEnabled = false;
@@ -62,6 +63,20 @@ export class Player {
         ctx.fillRect(200,10,this.Insanity*12.5,30)
     }
     update(ctx) {
+        this.dashCooldown -= 0.1
+        console.log(this.dashCooldown)
+        if (currentKey.get("Shift") && this.dashCooldown <= 0) {
+            this.dash = true;
+            setTimeout(() => {
+                this.dash = false;
+                this.dashCooldown = 10;
+            }, 200);
+        }
+        if (this.dash === true) {
+            this.speed = 5
+        } else {
+            this.speed = 2;
+        }
         if (this.direction === "Forward") { 
             if (this.tools === "Gun") {
                 gun.Sprite.src = "./Assets/Sprites/Gun1Up.png"
