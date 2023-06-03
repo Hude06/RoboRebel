@@ -10,6 +10,7 @@ export class Tool {
         this.direction = player.direction;
         this.set = false;
         this.ctx = ctx;
+        this.equipted = false;
     }
     draw(x,y) {
         if(x && y && this.set === false) {

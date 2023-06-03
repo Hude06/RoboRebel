@@ -11,6 +11,10 @@ export let navKey = new Map();
 export let player = new Player();
 export let mode = "Menu";
 export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
+export let SemiAutoGun = new Tool("./Assets/Sprites/Gun2.png",200,200,ctx);
+SemiAutoGun.bounds.w = 70
+SemiAutoGun.bounds.h = 70
+
 let Music = new Audio();
 export let gamePaused = false;
 export let particalEngine = new ParticleSource();
@@ -95,22 +99,23 @@ let WorldMap = new Image();
 WorldMap.src = ""
 let currentLevel = Home;
 function keyboardLoop() {
+    console.log(player.direction,player.speed)
     if (gamePaused === false) {
-        if (currentKey.get("w")) {
-            player.bounds.y -= player.speed;
+        if (currentKey.get("w") ) {
             player.direction = "Forward"
+            player.bounds.y -= player.speed;
         }
         if (currentKey.get("a")) {
-            player.bounds.x -= player.speed;
             player.direction = "Left"
+            player.bounds.x -= player.speed;
         }
         if (currentKey.get("s")) {
-            player.bounds.y += player.speed;
             player.direction = "Back"
+            player.bounds.y += player.speed;
         }
         if (currentKey.get("d")) {
-            player.bounds.x += player.speed;
             player.direction = "Right"
+            player.bounds.x += player.speed;
         }
     }
 }
@@ -137,7 +142,14 @@ function RobotUpdate() {
     }
 }
 function toolsDraw() {
-    gun.draw(10,10,ctx);
+    if (SemiAutoGun.equipted === false) {
+        SemiAutoGun.draw(200,200,ctx);
+        console.log("Drawing")
+    }
+    if (gun.equipted === false) {
+        gun.draw(200,500,ctx);
+        console.log("Drawing")
+    }
 }
 function playerDraw() {
     player.draw(ctx);
@@ -163,6 +175,8 @@ function Game() {
     currentLevel.update();
     if (currentLevel === House) {
         gun.visable = false;
+        SemiAutoGun.visable = false;
+
     }
     playerDraw();
     toolsDraw();
@@ -185,23 +199,23 @@ function StartGameFromButton() {
         mode = "Game"
 }
 function Save() {
-    setTimeout(() => {
-        localStorage.setItem("PlayerDirection", player.direction);
-        localStorage.setItem("Tool", player.tools);
-        console.log("Saving")
-        Save();
-        console.log("Saved")
-    }, 10000);
+    // setTimeout(() => {
+    //     localStorage.setItem("PlayerDirection", player.direction);
+    //     localStorage.setItem("Tool", player.tools);
+    //     console.log("Saving")
+    //     Save();
+    //     console.log("Saved")
+    // }, 10000);
 }
 function Load() {
-    if (localStorage.length > 0) {
-        player.tools = localStorage.getItem("Tool");
-        player.direction = localStorage.getItem("PlayerDirection");
-    } else {
-        player.bounds.x = 10
-        player.bounds.y = 10
-        player.direction = "Back";
-    }
+    // if (localStorage.length > 0) {
+    //     player.tools = localStorage.getItem("Tool");
+    //     player.direction = localStorage.getItem("PlayerDirection");
+    // } else {
+    //     player.bounds.x = 10
+    //     player.bounds.y = 10
+    //     player.direction = "Back";
+    // }
 }
 function Credits() {
     document.getElementById("button1").style.visibility = "hidden";
