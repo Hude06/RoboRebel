@@ -47,7 +47,7 @@ export class Player {
         this.bulletDirectionOffsetX = 10
         this.bulletDirectionOffsetY = 10
         this.dash = false;
-        this.Parts = 100;
+        this.Parts = 0;
         this.health = 3;
         this.Insanity = 2;
         this.dashCooldown = 10;

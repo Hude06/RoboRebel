@@ -42,6 +42,9 @@ class Level {
             player.bounds.x = this.walls[0].bounds.x-65;
             currentLevel = Level1;
         }
+        if (this.walls[3].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[3].bounds)) {
+            player.bounds.x = this.walls[3].bounds.x+65;
+        }
             if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
                 player.bounds.x = this.walls[1].bounds.x;
                 currentLevel = House;
@@ -91,8 +94,10 @@ let ExitWall = new Wall(1,1668,110,32,285)
 let EdgeWall1 = new Wall(3,250,60,32,750)
 let RoomEnterWall = new Wall(2,775,250,150,32);
 let ShopWall = new Wall(4,1440,150,175,32);
+let LeftBoundrie = new Wall(5,0,0,18,900)
 
-Home.walls = [ExitWall,RoomEnterWall,ShopWall]
+
+Home.walls = [ExitWall,RoomEnterWall,ShopWall,LeftBoundrie]
 Level1.walls = [EdgeWall1]
 
 let WorldMap = new Image();
@@ -176,7 +181,6 @@ function Game() {
     if (currentLevel === House) {
         gun.visable = false;
         SemiAutoGun.visable = false;
-
     }
     if (currentLevel === Level1) {
         if (player.tools === "Gun") {
@@ -244,7 +248,6 @@ function Tutorial() {
     ctx.fillStyle = "black";
     ctx.fillText("Gun, Walk over to pick it up",100,200);
     ctx.fillText("Press Space To Shoot",125,250);   
-
     player.draw(ctx);
     gun.draw(280,100,ctx);
     player.update(ctx);
