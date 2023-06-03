@@ -66,13 +66,13 @@ class Wall {
 function openShop(){
 document.getElementById("shop").style.visibility = "visible";
 document.getElementById("shop").innerHTML = "Parts: " + player.Parts;
-document.getElementById("display").style.left = "50%";
-document.getElementById("display").style.top = "20%";
+document.getElementById("display").style.visibility = "hidden";
 }
 function closeShop(){
     console.log("Shop Closed")
     gamePaused = false;
     document.getElementById("shop").style.visibility = "hidden";
+    document.getElementById("display").style.visibility = "visible";
 }
 Music.src = "./Assets/Music/Music1.mp3"
 let GameInitCalled = false;

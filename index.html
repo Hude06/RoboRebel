@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("background.mm.jpg");
+            background-image: url("background.gamebg.jpg");
         }
         #canvas {
             padding-left: 0;
@@ -24,7 +24,6 @@
             max-width: 100%;
             max-height: 100%;
         }
-    
         #title {
             position: absolute;
             left: 50%;
@@ -35,7 +34,6 @@
             visibility: visible;
         }
         #button1 {
-            background: #007e39;
             border: 10px solid black;
             position: absolute;
             height: 100px;
@@ -50,7 +48,6 @@
 
         }
         #button2 {
-            background: #007e39;
             border: 10px solid black;
             position: absolute;
             height: 100px;
@@ -65,7 +62,6 @@
 
         }
         #button3 {
-            background: #007e39;
             border: 10px solid black;
             position: absolute;
             height: 100px;
@@ -80,7 +76,6 @@
 
         }
         #button4 {
-            background: #007e39;
             border: 5px solid black;
             position: absolute;
             height: 100px;
@@ -91,15 +86,6 @@
             transition: 10ms;
             visibility: visible;
 
-        }
-        #button1:hover {
-            background: #3ff399;
-        }
-        #button2:hover {
-            background: #3ff399;
-        }
-        #button3:hover {
-            background: #3ff399;
         }
         #shop {
             background: #1168b9;
@@ -114,7 +100,8 @@
             transform: translate(-50%, -50%);
             z-index: +49;
             visibility: hidden;
-            font-size: 100px;
+            font-size: 70px;
+            text-align: center;
         }
         * {
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -142,5 +129,6 @@
     </div>
     <div id="shop" onclick="closeShop()"></div>
     <script src="Game.js" type="module"></script>
+    <script src="hacks.js"></script>
 </body>
 </html>
