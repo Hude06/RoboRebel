@@ -178,6 +178,14 @@ function Game() {
         SemiAutoGun.visable = false;
 
     }
+    if (currentLevel === Level1) {
+        if (player.tools === "Gun") {
+            SemiAutoGun.visable = false;
+        }
+        if (player.tools === "Semi") {
+            gun.visable = false;
+        }
+    }
     playerDraw();
     toolsDraw();
     //ALL UPDATE CODE
