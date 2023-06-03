@@ -1,3 +1,36 @@
-Robo Rebel is a simple but fun game inspired by starfue vally and desth inc
-in Robo Rebel humans and humanity used to get along perfectly but then the robots turned on us and trapped all of humanity
-excecpt one person, Kyle, he did not know why they dident take him. but he knew he was there last chance. so he ventures out into the workd to fight off the robots
+In the begining humans created robots and lived together in peace for decades.
+Then robots got way to advanced and tried to elemanate the human race.
+After Several years, young kyle was the last human free.
+Kyle is going insane because less oxygen
+Kyle lived his life hiding from robots in his house far away from the robot city.
+Over the years kyle developed a way to manipulate time and pause it for 30 seconds at a time.
+The Robot Minerster kept all the humans for turning them into robots.
+After a while teenage kyle saw the impact of robots on the world.
+he knew he had to stop this madness.
+He grabbed his FLash drive containing a virus.
+And discuized himself as a robot.
+He goes through levels.
+Building up armor and weapons.
+
+Armor ~
+
+
+
+
+Weapons ~
+
+emp
+flash drive
+Tazer
+lazer gun
+
+
+Robots ~
+
+b-29
+
+Mini Bosses ~
+
+Big Bosses ~
+
+Final Boss ~
