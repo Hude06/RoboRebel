@@ -64,7 +64,6 @@ export class Player {
     }
     update(ctx) {
         this.dashCooldown -= 0.1
-        console.log(this.dashCooldown)
         if (currentKey.get("Shift") && this.dashCooldown <= 0) {
             this.dash = true;
             setTimeout(() => {
@@ -142,7 +141,6 @@ export class Player {
             gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             gun.visable = true;
             gun.equipted = true;
-
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));

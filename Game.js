@@ -14,7 +14,8 @@ export let gun = new Tool("./Assets/Sprites/Gun1.png",100,100,ctx);
 export let SemiAutoGun = new Tool("./Assets/Sprites/Gun2.png",200,200,ctx);
 SemiAutoGun.bounds.w = 70
 SemiAutoGun.bounds.h = 70
-
+gun.bounds.x = 200;
+gun.bounds.y = 200;
 let Music = new Audio();
 export let gamePaused = false;
 export let particalEngine = new ParticleSource();
@@ -26,12 +27,27 @@ class Level {
       this.robots = [];
       this.w = w
       this.h = h
+      this.guns = []
+      this.offsetX = 0;
     }
    draw() {
+        if (this.guns) {
+            for (let i = 0; i < this.guns.length; i++) {
+                if (this.guns[i].equipted === false) {
+                    if (this.guns[i] === gun) {
+                        this.guns[i].draw(200,200,ctx)
+                    }
+                    if (this.guns[i] === SemiAutoGun) {
+                        this.guns[i].draw(400,200,ctx)
+                    }
+                }
+            }
+        }
         drawMap(this.map,this.w,this.h)
         if (this.robots) {
             for (let i = 0; i < this.robots.length; i++) {
                 this.robots[i].draw(ctx);
+
             }
         }
    }
@@ -43,7 +59,13 @@ class Level {
             currentLevel = Level1;
         }
         if (this.walls[3].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[3].bounds)) {
-            player.bounds.x = this.walls[3].bounds.x+65;
+            player.bounds.x = this.walls[3].bounds.x+20;
+        }
+        if (this.walls[4].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[4].bounds)) {
+            player.bounds.y = this.walls[4].bounds.y+20;
+        }
+        if (this.walls[5].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[5].bounds)) {
+            player.bounds.y = this.walls[5].bounds.y-20;
         }
             if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
                 player.bounds.x = this.walls[1].bounds.x;
@@ -57,6 +79,17 @@ class Level {
                     closeShop();
                     player.bounds.y = this.walls[2].bounds.y+40;
                 }
+            }
+        }
+        if (currentLevel === Level1) {
+            if (this.walls[0].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[0].bounds)) {
+                player.bounds.x = this.walls[0].bounds.x+20;
+            }
+            if (this.walls[1].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[1].bounds)) {
+                player.bounds.y = this.walls[1].bounds.y+20;
+            }
+            if (this.walls[2].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[2].bounds)) {
+                player.bounds.y = this.walls[2].bounds.y-55;
             }
         }
         ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
@@ -76,7 +109,6 @@ document.getElementById("shop").innerHTML = "Parts: " + player.Parts;
 document.getElementById("display").style.visibility = "hidden";
 }
 function closeShop(){
-    console.log("Shop Closed")
     gamePaused = false;
     document.getElementById("shop").style.visibility = "hidden";
     document.getElementById("display").style.visibility = "visible";
@@ -90,21 +122,19 @@ let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
 let Level1 = new Level(2,"./Assets/Level1.png",canvas.width,canvas.height);
 let House = new Level(3,"./Assets/House.png",700,700);
 Level1.robots = [Robot1,Robot2,Robot3];
+Home.guns = [gun,SemiAutoGun]
 let ExitWall = new Wall(1,1668,110,32,285)
-let EdgeWall1 = new Wall(3,250,60,32,750)
 let RoomEnterWall = new Wall(2,775,250,150,32);
 let ShopWall = new Wall(4,1440,150,175,32);
 let LeftBoundrie = new Wall(5,0,0,18,900)
-
-
-Home.walls = [ExitWall,RoomEnterWall,ShopWall,LeftBoundrie]
-Level1.walls = [EdgeWall1]
-
+let TopBoundire = new Wall(6,0,0,1900,18)
+let BottomBoundire = new Wall(7,0,830,1900,18)
+Home.walls = [ExitWall,RoomEnterWall,ShopWall,LeftBoundrie,TopBoundire,BottomBoundire]
+Level1.walls = [LeftBoundrie,TopBoundire,BottomBoundire]
 let WorldMap = new Image();
 WorldMap.src = ""
 let currentLevel = Home;
 function keyboardLoop() {
-    console.log(player.direction,player.speed)
     if (gamePaused === false) {
         if (currentKey.get("w") ) {
             player.direction = "Forward"
@@ -149,11 +179,9 @@ function RobotUpdate() {
 function toolsDraw() {
     if (SemiAutoGun.equipted === false) {
         SemiAutoGun.draw(200,200,ctx);
-        console.log("Drawing")
     }
     if (gun.equipted === false) {
         gun.draw(200,500,ctx);
-        console.log("Drawing")
     }
 }
 function playerDraw() {
@@ -215,9 +243,7 @@ function Save() {
     // setTimeout(() => {
     //     localStorage.setItem("PlayerDirection", player.direction);
     //     localStorage.setItem("Tool", player.tools);
-    //     console.log("Saving")
     //     Save();
-    //     console.log("Saved")
     // }, 10000);
 }
 function Load() {
@@ -266,7 +292,6 @@ function Loop() {
     keyboardLoop();
     if (mode === "Credits") {
         CreditsScrollSpeed += 1;
-        console.log("Running")
         ctx.font = "40px Impact";
         ctx.textAlign = "center";
         ctx.fillText("Pixel Art Desinger, Eli Ciho, Jude Hill", canvas.width/2, (canvas.height/2-800) + CreditsScrollSpeed);
