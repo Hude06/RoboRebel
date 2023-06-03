@@ -196,6 +196,7 @@ function StartGameFromButton() {
         document.getElementById("button3").style.visibility = "hidden";
         document.getElementById("title").style.visibility = "hidden";
         document.getElementById("display").style.visibility = "visible";
+        document.getElementById("fullscreen").style.backgroundImage = "url('background.gamebg.jpg')";
         mode = "Game"
 }
 function Save() {

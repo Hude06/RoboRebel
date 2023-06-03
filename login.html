@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<h3>Enter Username</h3>
+
+<input type="text" id="user" value="">
+
+<h3>Enter Password</h3>
+
+<input type="text" id="pass" value="">
+
+<br>
+<br>
+
+<button onclick="signUp()">Sign In</button>
+
+<p id="display1"></p>
+<p id="display2"></p>
+
+<script>
+function signIn() {
+  var username = document.getElementById("user").value;
+  var password = document.getElementById("pass").value;
+  
+  if( ( username == localStorage.getItem("Username") ) ( password == localStorage.getItem("Password") ) ){
+	
+  }
+}
+// Set Item
+localStorage.setItem("Username", username);
+localStorage.setItem("Password", password);
+// Retrieve
+document.getElementById("demo").innerHTML = localStorage.getItem("lastname");
+</script>
+
+</body>
+</html>

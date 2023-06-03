@@ -3,7 +3,7 @@
 <head>
     <title>Mr. Robot</title>
     <style>
-        .fullscreen
+        #fullscreen
          {
             position: fixed;
             top: 0;
@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("background.gamebg.jpg");
+            background-image: url("background.mm.jpg");
         }
         #canvas {
             padding-left: 0;
@@ -88,7 +88,7 @@
 
         }
         #shop {
-            background: #1168b9;
+            background: #747474;
             border: 20px solid rgb(0, 0, 0);
             position: absolute;
             height: 80%;
@@ -120,15 +120,16 @@
     <div id="title">Mr. Robotic</div>
     <!-- <button id="button4">Clear</button> -->
 
-    <div class="fullscreen">
+    <div id="fullscreen">
         <button id="button1">Start</button>
         <button id="button2">How to Play</button>
         <button id="button3">Credits</button>
         <canvas id="canvas" width="1700" height="845"></canvas>
         <money id="display">Parts: </money>
     </div>
-    <div id="shop" onclick="closeShop()"></div>
+    <div id="shop"></div>
     <script src="Game.js" type="module"></script>
     <script src="hacks.js"></script>
+    <script src="login"></script>
 </body>
 </html>
