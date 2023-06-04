@@ -11,6 +11,7 @@ class Bullet {
 
     draw(ctx) {
         if (this.alive && gun.visable) {
+            console.log("ShootingWorking")
             ctx.fillStyle = "black";
             ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
         }
@@ -141,6 +142,7 @@ export class Player {
             gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             gun.visable = true;
             gun.equipted = true;
+            SemiAutoGun.visable = true;
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
@@ -151,8 +153,11 @@ export class Player {
             SemiAutoGun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             SemiAutoGun.visable = true;
             SemiAutoGun.equipted = true;
+            gun.visable = true
+
             SemiAutoGun.draw();
             if (navKey.get(" ")) {
+                console.log('Shooting')
                 bullets.push(new Bullet(SemiAutoGun));
             }
         }

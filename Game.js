@@ -82,6 +82,9 @@ class Level {
             }
         }
         if (currentLevel === Level1) {
+            for (let i = 0; i < this.guns.length; i++) {
+                this.guns[i].visable = true
+            }
             if (this.walls[0].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[0].bounds)) {
                 player.bounds.x = this.walls[0].bounds.x+20;
             }
@@ -211,6 +214,7 @@ function Game() {
         SemiAutoGun.visable = false;
     }
     if (currentLevel === Level1) {
+        console.log(player.tools)
         if (player.tools === "Gun") {
             SemiAutoGun.visable = false;
         }
