@@ -7,17 +7,19 @@ class Bullet {
         this.speed = gun.BulletSpeed;
         this.direction = player.direction;
         this.alive = true;
+        this.gun = gun
     }
 
     draw(ctx) {
-        if (this.alive && gun.visable) {
+        if (this.alive && this.gun.equipted) {
             console.log("ShootingWorking")
             ctx.fillStyle = "black";
             ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
         }
     }
     update() {
-        if (this.alive && gun.visable) {
+        console.log(gun.equipted)
+        if (this.alive && this.gun.equipted) {
             if (this.direction === "Left") {
                 this.bounds.x -= this.speed;
             }
@@ -39,7 +41,7 @@ export class Player {
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.HeathSprite = new Image();
         this.HeathSprite.src = "./Assets/Sprites/Heart.png";
-        this.bounds = new Rect(800,500,55,55);
+        this.bounds = new Rect(1500,500,55,55);
         this.direction = "Back";
         this.speed = 2;
         this.tools = "";
@@ -76,6 +78,12 @@ export class Player {
             this.speed = 5
         } else {
             this.speed = 2;
+        }
+        if (this.tools === "Gun") {
+            gun.equipted = true;
+        }
+        if (this.tools === "Semi") {
+            SemiAutoGun.equipted = true;
         }
         if (this.direction === "Forward") { 
             if (this.tools === "Gun") {

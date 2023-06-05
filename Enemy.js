@@ -9,6 +9,10 @@ export class Robot {
         this.speed = speed;
         this.image = new Image()
         this.image.src = src;
+        this.direction = ""
+        this.ComputerDirectionSet = false;
+        this.pastComputerDirection;
+
     }
     draw(ctx) {
         if (this.health >= 0) {
@@ -36,15 +40,19 @@ export class Robot {
     follow(player) {
         if ((player.bounds.x) > this.bounds.x){
             this.bounds.x += this.speed
+            this.direction = "Right"
         }
         if ((player.bounds.x) < this.bounds.x){
             this.bounds.x -= this.speed
+            this.direction = "Left"
         }
         if ((player.bounds.y) > this.bounds.y){
             this.bounds.y += this.speed
+            this.direction = "Down"
         }
         if ((player.bounds.y) < this.bounds.y){
             this.bounds.y -= this.speed
+            this.direction = "Up"
         }
      }
     

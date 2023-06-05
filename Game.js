@@ -29,6 +29,10 @@ class Level {
       this.h = h
       this.guns = []
       this.offsetX = 0;
+      this.pastPlayerDirection;
+      this.PlayerDirectionSet = false;
+      this.ComputerDirectionSet = false;
+
     }
    draw() {
         if (this.guns) {
@@ -94,11 +98,54 @@ class Level {
             if (this.walls[2].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[2].bounds)) {
                 player.bounds.y = this.walls[2].bounds.y-55;
             }
+            if (this.walls[3].bounds.intersects(player.bounds) || player.bounds.intersects(this.walls[3].bounds)) {
+                if (this.PlayerDirectionSet === false) {
+                    this.pastPlayerDirection = player.direction;
+                    this.PlayerDirectionSet = true;
+                }
+                if (this.pastPlayerDirection === "Left") {
+                    console.log("Hit Going Left")
+                    player.bounds.x = this.walls[3].bounds.x + 400
+                }
+                if (this.pastPlayerDirection === "Forward") {
+                    console.log("Hit Going Left")
+                    player.bounds.y = this.walls[3].bounds.y + 400
+                }
+                if (this.pastPlayerDirection === "Back") {
+                    console.log("Hit Going Left")
+                    player.bounds.y = this.walls[3].bounds.y - 55
+                }
+            } else {
+                this.PlayerDirectionSet = false;
+            }
+
+            for (let i = 0; i < Level1.robots.length; i++) {
+                if (Level1.robots[i].bounds.intersects(this.walls[3].bounds) || this.walls[3].bounds.intersects(Level1.robots[i].bounds)) {
+                    if (this.ComputerDirectionSet === false) {
+                        Level1.robots[i].pastComputerDirection = Level1.robots[i].direction;
+                        this.ComputerDirectionSet = true;
+                    }
+                    if (Level1.robots[i].pastComputerDirection === "Down") {
+                        Level1.robots[i].bounds.y = this.walls[3].bounds.y - 70;
+                    }
+                    if (Level1.robots[i].pastComputerDirection === "Up") {
+                        Level1.robots[i].bounds.y = this.walls[3].bounds.y + 70;
+                    }
+                    if (Level1.robots[i].pastComputerDirection === "Right") {
+                        Level1.robots[i].bounds.x = this.walls[3].bounds.x - 70;
+                    }
+                    if (Level1.robots[i].pastComputerDirection === "Left") {
+                        Level1.robots[i].bounds.x = this.walls[3].bounds.x + 70;
+                    }
+                } else {
+                    this.ComputerDirectionSet = false;
+                }
+
+            }
         }
         ctx.fillRect(this.walls[i].bounds.x,this.walls[i].bounds.y,this.walls[i].bounds.w,this.walls[i].bounds.h)
     }
    }
-    // Level-specific methods
 }
 class Wall {
     constructor(id,x,y,w,h) {
@@ -125,18 +172,19 @@ let Home = new Level(1,"./Assets/map.png",canvas.width,canvas.height);
 let Level1 = new Level(2,"./Assets/Level1.png",canvas.width,canvas.height);
 let House = new Level(3,"./Assets/House.png",700,700);
 Level1.robots = [Robot1,Robot2,Robot3];
-Home.guns = [gun,SemiAutoGun]
+Home.guns = [gun,SemiAutoGun];
 let ExitWall = new Wall(1,1668,110,32,285)
 let RoomEnterWall = new Wall(2,775,250,150,32);
 let ShopWall = new Wall(4,1440,150,175,32);
 let LeftBoundrie = new Wall(5,0,0,18,900)
 let TopBoundire = new Wall(6,0,0,1900,18)
 let BottomBoundire = new Wall(7,0,830,1900,18)
+let Level1Obstical = new Wall(8,565,225,400,400)
 Home.walls = [ExitWall,RoomEnterWall,ShopWall,LeftBoundrie,TopBoundire,BottomBoundire]
-Level1.walls = [LeftBoundrie,TopBoundire,BottomBoundire]
+Level1.walls = [LeftBoundrie,TopBoundire,BottomBoundire,Level1Obstical]
 let WorldMap = new Image();
 WorldMap.src = ""
-let currentLevel = Home;
+let currentLevel = Level1;
 function keyboardLoop() {
     if (gamePaused === false) {
         if (currentKey.get("w") ) {
@@ -214,7 +262,6 @@ function Game() {
         SemiAutoGun.visable = false;
     }
     if (currentLevel === Level1) {
-        console.log(player.tools)
         if (player.tools === "Gun") {
             SemiAutoGun.visable = false;
         }
