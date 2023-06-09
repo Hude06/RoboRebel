@@ -7,16 +7,19 @@ class Bullet {
         this.speed = gun.BulletSpeed;
         this.direction = player.direction;
         this.alive = true;
+        this.gun = gun
     }
 
     draw(ctx) {
-        if (this.alive && gun.visable) {
+        if (this.alive && this.gun.equipted) {
+            console.log("ShootingWorking")
             ctx.fillStyle = "black";
             ctx.fillRect(this.bounds.x, this.bounds.y,this.bounds.w,this.bounds.h);
         }
     }
     update() {
-        if (this.alive && gun.visable) {
+        console.log(gun.equipted)
+        if (this.alive && this.gun.equipted) {
             if (this.direction === "Left") {
                 this.bounds.x -= this.speed;
             }
@@ -38,7 +41,7 @@ export class Player {
         this.Sprite.src = "./Assets/Sprites/Player/PlayerRight.png";
         this.HeathSprite = new Image();
         this.HeathSprite.src = "./Assets/Sprites/Heart.png";
-        this.bounds = new Rect(800,500,55,55);
+        this.bounds = new Rect(1500,500,55,55);
         this.direction = "Back";
         this.speed = 2;
         this.tools = "";
@@ -47,7 +50,7 @@ export class Player {
         this.bulletDirectionOffsetX = 10
         this.bulletDirectionOffsetY = 10
         this.dash = false;
-        this.Parts = 100;
+        this.Parts = 0;
         this.health = 3;
         this.Insanity = 2;
         this.dashCooldown = 10;
@@ -64,7 +67,6 @@ export class Player {
     }
     update(ctx) {
         this.dashCooldown -= 0.1
-        console.log(this.dashCooldown)
         if (currentKey.get("Shift") && this.dashCooldown <= 0) {
             this.dash = true;
             setTimeout(() => {
@@ -76,6 +78,12 @@ export class Player {
             this.speed = 5
         } else {
             this.speed = 2;
+        }
+        if (this.tools === "Gun") {
+            gun.equipted = true;
+        }
+        if (this.tools === "Semi") {
+            SemiAutoGun.equipted = true;
         }
         if (this.direction === "Forward") { 
             if (this.tools === "Gun") {
@@ -142,7 +150,7 @@ export class Player {
             gun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             gun.visable = true;
             gun.equipted = true;
-
+            SemiAutoGun.visable = true;
             gun.draw();
             if (navKey.get(" ")) {
                 bullets.push(new Bullet(gun));
@@ -153,8 +161,11 @@ export class Player {
             SemiAutoGun.bounds.y = this.bounds.y + this.toolDirectionOffsetY;
             SemiAutoGun.visable = true;
             SemiAutoGun.equipted = true;
+            gun.visable = true
+
             SemiAutoGun.draw();
             if (navKey.get(" ")) {
+                console.log('Shooting')
                 bullets.push(new Bullet(SemiAutoGun));
             }
         }
